@@ -1,26 +1,54 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --primary: #000475;
+  --secondary: #FFFFFF;
+  --tertiary: #000000;
+  --gray-100: rgba(0, 0, 0, 0.5);
+  --gray-50: rgba(0, 0, 0, 0.25);
+  --gray-25: rgba(0, 0, 0, 0.125);
+  --success: #00FF00;
+  --error: #FF0000;
+  --warning: #FFFF00;
+  --info: #0000FF;
+  --light: #FFFFFF;
+  --dark: #000000;
+  --background: #FFFFFF;
+  --text: #000000;
+  --content-width: 1200px;
+  --gap-sm: 16px;
+  --gap-md: 24px;
+  --gap-lg: 32px;
+  --gap-xl: 48px;
 }
 
-@theme inline {
+@theme {
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-tertiary: var(--tertiary);
+  --color-gray-100: var(--gray-100);
+  --color-gray-50: var(--gray-50);
+  --color-gray-25: var(--gray-25);
+  --color-success: var(--success);
+  --color-error: var(--error);
+  --color-warning: var(--warning);
+  --color-info: var(--info);
+  --color-light: var(--light);
+  --color-dark: var(--dark);
   --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --spacing-content-width: var(--content-width);
+  --spacing-theme-sm: var(--gap-sm);
+  --spacing-theme-md: var(--gap-md);
+  --spacing-theme-lg: var(--gap-lg);
+  --spacing-theme-xl: var(--gap-xl);
 }
 
 body {
   background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text);
+  font-family: var(--font-lexend), Arial, Helvetica, sans-serif;
+}
+
+a {
+  @apply hover:underline;
 }
