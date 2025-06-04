@@ -12,7 +12,7 @@ interface ButtonProps {
 export const Button = ({
   children,
   onClick,
-  className,
+  className = "px-4 py-2 rounded-md",
   variant = "primary",
 }: ButtonProps) => {
   const variantStyle =
@@ -26,7 +26,7 @@ export const Button = ({
 
   return (
     <button
-      className={`px-6 py-2 rounded-4xl ${variantStyle} cursor-pointer hover:bg-primary/75 transition-all duration-200 ${className}`}
+      className={`${className} ${variantStyle} cursor-pointer hover:bg-primary/75 transition-colors duration-200`}
       onClick={onClick}
     >
       {children}

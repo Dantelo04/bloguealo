@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --primary: #000475;
+  --primary: #02013b;
   --secondary: #FFFFFF;
   --tertiary: #000000;
   --gray-100: rgba(0, 0, 0, 0.5);
@@ -20,6 +20,7 @@
   --gap-md: 24px;
   --gap-lg: 32px;
   --gap-xl: 48px;
+  --horizontal-padding: 16px;
 }
 
 @theme {
@@ -41,6 +42,7 @@
   --spacing-theme-md: var(--gap-md);
   --spacing-theme-lg: var(--gap-lg);
   --spacing-theme-xl: var(--gap-xl);
+  --spacing-horizontal-padding: var(--horizontal-padding);
 }
 
 body {
@@ -51,4 +53,20 @@ body {
 
 a {
   @apply hover:underline;
+}
+
+h2 {
+  @apply text-4xl font-bold text-center;
+}
+
+h3 {
+  @apply text-2xl font-bold text-center;
+}
+
+h4 {
+  @apply text-xl font-bold text-center;
+}
+
+h5 {
+  @apply text-lg font-bold text-center;
 }
