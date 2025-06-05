@@ -15,7 +15,7 @@
   --dark: #000000;
   --background: #FFFFFF;
   --text: #000000;
-  --content-width: 1200px;
+  --content-width: 1096px;
   --gap-sm: 16px;
   --gap-md: 24px;
   --gap-lg: 32px;
@@ -56,17 +56,25 @@ a {
 }
 
 h2 {
-  @apply text-4xl font-bold text-center;
+  @apply text-4xl font-bold text-center w-fit;
 }
 
 h3 {
-  @apply text-2xl font-bold text-center;
+  @apply text-2xl font-bold text-center w-fit;
 }
 
 h4 {
-  @apply text-xl font-bold text-center;
+  @apply text-xl font-bold text-center w-fit;
 }
 
 h5 {
-  @apply text-lg font-bold text-center;
+  @apply text-lg font-bold text-center w-fit;
+}
+
+section {
+  @apply flex flex-col gap-2;
+}
+
+.blog-image {
+  @apply w-full rounded-xl object-contain;
 }

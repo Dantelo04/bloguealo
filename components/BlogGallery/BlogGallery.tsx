@@ -135,7 +135,7 @@ interface BlogGalleryProps {
 
 export const BlogGallery = ({ blogs = blogsSample, title = 'Últimas publicaciones', link }: BlogGalleryProps) => {
   return (
-    <div className='flex flex-col gap-theme-sm w-full max-w-[calc(var(--spacing-content-width)+32px)] px-horizontal-padding'>
+    <div className='flex flex-col gap-theme-sm w-full max-w-[var(--spacing-content-width)]'>
         <div className='inline-flex justify-between items-center'>
             <h3>{title}</h3>
             {link && 

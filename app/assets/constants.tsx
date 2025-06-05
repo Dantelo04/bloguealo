@@ -1,0 +1,15 @@
+export const BLOG_TAGS = [
+    'Technology',
+    'Design',
+    'Development',
+    'Marketing',
+    'Business',
+    'Finance',
+    'Health',
+    'Education',
+    'Science',
+    'Art',
+    'Music',
+    'Travel',
+    'Food',
+]

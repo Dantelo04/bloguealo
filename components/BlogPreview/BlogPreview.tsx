@@ -8,6 +8,7 @@ import { FaHeart } from "react-icons/fa";
 import { CustomLink } from "../CustomLink/CustomLink";
 import { CgArrowRight } from "react-icons/cg";
 import { Button } from "../Button/Button";
+import { LikeButton } from "../Button/LikeButton";
 
 
 interface BlogPreviewProps {
@@ -58,16 +59,14 @@ export const BlogPreview = ({
       <div className="flex justify-between items-center px-theme-md pb-theme-md">
         <p className="text-sm text-gray-100">Made by {author}</p>
         <p className="flex items-center gap-2">
-          <button onClick={() => setLiked(!like)} className="cursor-pointer">
-            {like ? <FaHeart className='w-6 h-6 text-red-600'/> : <FaRegHeart className='w-6 h-6' />}
-          </button>
+          <LikeButton liked={like} onClick={() => setLiked(!like)} />
           {likes}
         </p>
       </div>
 
       <div className="w-full flex items-center justify-between px-theme-md">
-        <Button className="w-full rounded-md py-2">
-          <span>Ver más</span>
+        <Button className="w-full rounded-md py-2" onClick={() => (window.location.href = `/blog/${id}`)}>
+          <span>Leer más</span>
         </Button>
       </div>
     </div>
