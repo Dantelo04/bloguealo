@@ -12,7 +12,7 @@ export const BlogContent = ({ content }: BlogContentProps) => {
   return (
     <article
       className={`prose prose-lg w-full lg:w-[75%] ${styles.blogContent}`}
-      dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content) }}
+      dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content ? content : "Write your content here") }}
     />
   );
 };

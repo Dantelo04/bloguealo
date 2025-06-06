@@ -8,6 +8,7 @@ interface InputProps {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   hideButton?: boolean;
+  required?: boolean;
 }
 
 export const Input = ({
@@ -17,6 +18,7 @@ export const Input = ({
   value,
   hideButton,
   onChange,
+  required,
 }: InputProps) => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -29,6 +31,7 @@ export const Input = ({
         name={name}
         value={value}
         onChange={onChange}
+        required={required}
       />
       {hideButton && (
         <button

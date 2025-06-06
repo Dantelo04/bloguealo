@@ -4,13 +4,19 @@ import { Content } from '@/components/Content/Content'
 import { BlogGallery } from '@/components/BlogGallery/BlogGallery'
 import React, { useState } from 'react'
 import { SearchInput } from '@/components/SearchInput/SearchInput'
-import { Tag } from '@/components/BlogPreview/Tag'
+import { Tag } from '@/components/BlogCard/Tag'
 import { BLOG_TAGS } from '../../assets/constants'
+import { useQuery } from '@tanstack/react-query'
+import { getAllBlogs } from '@/lib/actions/getAllBlogs'
 
 export default function Blog() {
   const [search, setSearch] = useState('')
   const [tags, setTags] = useState(BLOG_TAGS)
   const [selectedTag, setSelectedTag] = useState<string[] | null>(null)
+  const { data, isPending, error } = useQuery({
+    queryKey: ['blogs'],
+    queryFn: () => getAllBlogs()
+  })
 
   const handleTagClick = (tag: string) => {
     if (selectedTag?.includes(tag)) {
@@ -30,7 +36,7 @@ export default function Blog() {
             ))}
         </div>
       </div>
-      <BlogGallery title=''/>
+      {!isPending && <BlogGallery title='' blogs={data}/>}
     </Content>
   )
 }

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { blogsSample } from "../BlogGallery/BlogGallery";
 import { SimpleBlogPreview } from "./SimpleBlogPreview";
+import { blogsSample } from "@/assets/constants";
 
 export const SimpleBlogList = () => {
   const [blogs, setBlogs] = useState(blogsSample.slice(0, 3));

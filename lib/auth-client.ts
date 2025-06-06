@@ -19,7 +19,7 @@ export const authClient = createAuthClient({
             avatar: {
               type: 'string',
               required: false
-            }
+            },
           }
         })
       ]

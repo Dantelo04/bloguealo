@@ -1,70 +1,49 @@
-"use client";
-
-import React, { useState } from "react";
-import Image from "next/image";
-import { Tag } from "./Tag";
-import { FaRegHeart } from "react-icons/fa";
-import { FaHeart } from "react-icons/fa";
-import { CustomLink } from "../CustomLink/CustomLink";
-import { CgArrowRight } from "react-icons/cg";
-import { Button } from "../Button/Button";
-import { LikeButton } from "../Button/LikeButton";
 
 
+import React from "react";
+import { BlogContent } from "../BlogContent/BlogContent";
+import { BlogHighlight } from "../BlogHighlight/BlogHighlight";
+import { BlogAside } from "../BlogAside/BlogAside";
+import { TitleSection } from "../TitleSection/TitleSection";
+import { authClient } from "@/lib/auth-client";
+import { DateFormat, DEFAULT_BLOG_IMAGE } from "@/assets/constants";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 interface BlogPreviewProps {
   title: string;
   description: string;
   image: string;
-  date: string;
-  author: string;
-  authorImage: string;
-  likes: number;
-  tag: string;
-  id: number;
-  liked: boolean;
+  content: string;
 }
 
 export const BlogPreview = ({
   title,
   description,
   image,
-  date,
-  author,
-  authorImage,
-  likes,
-  tag,
-  id,
-  liked,
+  content,
 }: BlogPreviewProps) => {
-  const [like, setLiked] = useState(false);
-
+  const { data: session } = authClient.useSession();
+  const today = new Date().toISOString();
+  const queryClient = new QueryClient();
+  
   return (
-    <div className="flex flex-col justify-between overflow-hidden rounded-xl border w-full pb-theme-md">
-      <div className="flex flex-col">
-        <Image
-          src={image}
-          alt={title}
-          width={300}
-          height={300}
-          className="object-cover w-full h-[180px] border-b border-black cursor-pointer"
-          onClick={() => (window.location.href = `/blog/${id}`)}
-        />
-        <div className="flex flex-col gap-2 p-theme-md">
-          <Tag>{tag}</Tag>
-          <h4 className="w-fit">{title}</h4>
-          <p>{description}</p>
-        </div>
-      </div>
-
-      <div className="flex justify-between items-center px-theme-md pb-theme-md">
-        <p className="text-sm text-gray-100">Made by {author}</p>
-        <LikeButton liked={like} likes={likes} onClick={() => setLiked(!like)} />
-      </div>
-
-      <div className="w-full flex items-center justify-between px-theme-md">
-        <Button className="w-full rounded-md py-2" onClick={() => (window.location.href = `/blog/${id}`)}>
-          <span>Leer más</span>
-        </Button>
+    <div className="flex flex-col gap-theme-lg w-full max-w-[var(--spacing-content-width)]">
+      <TitleSection title="Vista previa" />
+      <BlogHighlight
+        title={title ? title : "Write your title here"}
+        description={description ? description : "Write your description here"}
+        image={image ? image : DEFAULT_BLOG_IMAGE}
+        date={today}
+      />
+      <div className="flex lg:flex-row flex-col-reverse w-full lg:gap-theme-xl gap-2 max-w-[var(--spacing-content-width)] min-h-screen relative">
+        <QueryClientProvider client={queryClient}>
+          <BlogAside
+            likes={100}
+            liked={false}
+            author={session?.user?.id || null}
+            date={today}
+          />
+        </QueryClientProvider>
+        <BlogContent content={content} />
       </div>
     </div>
   );

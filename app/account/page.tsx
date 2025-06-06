@@ -7,6 +7,8 @@ import { Button } from "@/components/Button/Button";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { FaUser } from "react-icons/fa";
+import { BlogGallery } from "@/components/BlogGallery/BlogGallery";
+import { TitleSection } from "@/components/TitleSection/TitleSection";
 
 export default function Account() {
   const router = useRouter();
@@ -38,7 +40,8 @@ export default function Account() {
 
   return (
     <Content minHeight="min-h-screen" gap="lg:gap-theme-lg gap-theme-md">
-      <div className="flex flex-col gap-theme-lg items-center w-full max-w-[calc(var(--spacing-content-width)/2)] p-theme-lg border rounded-md">
+      <TitleSection title="Mi cuenta" />
+      <div className="flex flex-col gap-theme-lg items-center w-full max-w-[var(--spacing-content-width)] p-theme-lg border rounded-md">
         <div className="flex flex-col items-center gap-theme-md">
           <div className="relative w-32 h-32">
             {session?.user?.avatar ? (
@@ -84,6 +87,7 @@ export default function Account() {
           Sign Out
         </Button>
       </div>
+      <BlogGallery title="Mis publicaciones" />
     </Content>
   );
 }

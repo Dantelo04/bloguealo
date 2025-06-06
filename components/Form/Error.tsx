@@ -7,7 +7,7 @@ interface ErrorProps {
 
 export const Error = ({ error }: ErrorProps) => {
   return (
-    <div className="text-red-500 text-sm inline-flex items-center gap-2 p-2 bg-red-500/10 rounded-md">
+    <div className="text-red-500 border border-red-500 text-sm inline-flex items-center gap-2 p-2 bg-red-500/5 rounded-md">
       <IoAlertCircleOutline className="w-5 h-5" />
       {error}
     </div>
