@@ -5,7 +5,7 @@ import { BlogGallery } from '@/components/BlogGallery/BlogGallery'
 import React, { useState } from 'react'
 import { SearchInput } from '@/components/SearchInput/SearchInput'
 import { Tag } from '@/components/BlogPreview/Tag'
-import { BLOG_TAGS } from '../assets/constants'
+import { BLOG_TAGS } from '../../assets/constants'
 
 export default function Blog() {
   const [search, setSearch] = useState('')

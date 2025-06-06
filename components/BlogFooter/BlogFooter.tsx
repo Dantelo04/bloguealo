@@ -11,7 +11,7 @@ interface BlogFooterProps {
 
 export const BlogFooter = ({ likes, liked, onClick }: BlogFooterProps) => {
   return (
-    <div className='inline-flex justify-between items-center w-full max-w-[var(--spacing-content-width)] py-theme-sm border-t border-black'>
+    <div className='lg:inline-flex hidden justify-between items-center w-full max-w-[var(--spacing-content-width)] py-theme-sm border-t border-black'>
         <div className='flex gap-theme-sm'>
             <SocialMediaButton onClick={() => {}}>
                 <FaFacebook />
@@ -23,10 +23,7 @@ export const BlogFooter = ({ likes, liked, onClick }: BlogFooterProps) => {
                 <FaInstagram />
             </SocialMediaButton>
         </div>
-        <div className='flex items-center gap-2 px-theme-2'>
-            <p>{likes}</p>
-            <LikeButton liked={liked} onClick={onClick}/>
-        </div>
+        <LikeButton liked={liked} likes={likes} onClick={onClick}/>
     </div>
   )
 }

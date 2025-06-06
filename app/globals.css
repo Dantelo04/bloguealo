@@ -48,7 +48,7 @@
 body {
   background: var(--background);
   color: var(--text);
-  font-family: var(--font-lexend), Arial, Helvetica, sans-serif;
+  font-family: var(--font-outfit), Arial, Helvetica, sans-serif;
 }
 
 a {
@@ -68,13 +68,9 @@ h4 {
 }
 
 h5 {
-  @apply text-lg font-bold text-center w-fit;
+  @apply text-lg font-semibold text-center w-fit;
 }
 
 section {
   @apply flex flex-col gap-2;
-}
-
-.blog-image {
-  @apply w-full rounded-xl object-contain;
 }

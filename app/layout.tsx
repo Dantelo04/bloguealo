@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Lexend } from "next/font/google";
+import { Outfit } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar/Navbar";
 import { Footer } from "@/components/Footer/Footer";
 
-const lexend = Lexend({
-  variable: "--font-lexend",
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
 });
 
@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body
-        className={`${lexend.variable} antialiased`}
+        className={`${outfit.variable} antialiased`}
       >
         <Navbar />
         {children}

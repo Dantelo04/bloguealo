@@ -58,10 +58,7 @@ export const BlogPreview = ({
 
       <div className="flex justify-between items-center px-theme-md pb-theme-md">
         <p className="text-sm text-gray-100">Made by {author}</p>
-        <p className="flex items-center gap-2">
-          <LikeButton liked={like} onClick={() => setLiked(!like)} />
-          {likes}
-        </p>
+        <LikeButton liked={like} likes={likes} onClick={() => setLiked(!like)} />
       </div>
 
       <div className="w-full flex items-center justify-between px-theme-md">

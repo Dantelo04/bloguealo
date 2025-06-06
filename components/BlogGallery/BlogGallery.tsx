@@ -3,8 +3,7 @@ import { CustomLink } from '../CustomLink/CustomLink'
 import { CgArrowRight } from 'react-icons/cg'
 import { BlogPreview } from '../BlogPreview/BlogPreview'
 
-const blogsSample = [
-  //generate 10 blogs with random data
+export const blogsSample = [
   {
     id: 1,
     title: 'Blog 1',

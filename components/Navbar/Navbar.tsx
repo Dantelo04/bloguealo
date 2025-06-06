@@ -7,25 +7,14 @@ import { Button } from "../Button/Button";
 import { BiPlus } from "react-icons/bi";
 import { BiMenu } from "react-icons/bi";
 import { IoMdClose } from "react-icons/io";
-
-const navItems = [
-  {
-    label: "Inicio",
-    href: "/",
-  },
-  {
-    label: "Sobre Mi",
-    href: "/about",
-  },
-  {
-    label: "Contacto",
-    href: "/contact",
-  },
-];
+import { authClient } from "@/lib/auth-client";
+import { AccountButton } from "../AccountButton/AccountButton";
+import { NAV_ITEMS } from "@/assets/constants";
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+  const { data: session, isPending, error } = authClient.useSession();
+  
   const handleMenuOpen = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -35,17 +24,27 @@ export const Navbar = () => {
       <div className="flex justify-between items-center py-4 px-[16px] max-w-[calc(var(--spacing-content-width)+32px)] w-full">
         <Logo />
         <div className="lg:flex hidden gap-theme-xl items-center">
-          {navItems.map((item) => (
+          {NAV_ITEMS.map((item) => (
             <Link key={item.href} href={item.href}>
               {item.label}
             </Link>
           ))}
         </div>
         <div className="lg:flex hidden gap-theme-sm items-center">
-          <Link href="/login">Ingresar</Link>
+          {session && !isPending && !error ? (
+            <AccountButton avatarImage={session.user?.avatar} width={36} height={36} />
+          ) : isPending ? (
+            <div></div>
+          ) : (
+            <Link href="/login">Ingresar</Link>
+          )}
           <Button
             onClick={() => {
-              window.location.href = "/create";
+              if (session && !isPending && !error) {
+                window.location.href = "/create";
+              } else {
+                window.location.href = "/login";
+              }
             }}
           >
             <div className="inline-flex items-center gap-1">
@@ -87,7 +86,7 @@ export const Navbar = () => {
             </div>
           </div>
           <div className="flex flex-col gap-theme-lg text-xl">
-            {navItems.map((item) => (
+            {NAV_ITEMS.map((item) => (
               <Link key={item.href} href={item.href}>
                 {item.label}
               </Link>
@@ -96,7 +95,11 @@ export const Navbar = () => {
           <Button
             className="py-4 rounded-md mt-4"
             onClick={() => {
-              window.location.href = "/create";
+              if (session && !isPending && !error) {
+                window.location.href = "/create";
+              } else {
+                window.location.href = "/login";
+              }
             }}
           >
             <div className="inline-flex items-center gap-1">
