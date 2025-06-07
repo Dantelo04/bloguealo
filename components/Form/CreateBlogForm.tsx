@@ -6,7 +6,7 @@ import { Button } from "../Button/Button";
 import { TextArea } from "./TextArea";
 import { BlogPreview } from "../BlogPreview/BlogPreview";
 import { Tag } from "../BlogCard/Tag";
-import { BLOG_TAGS, TAG_LIMIT } from "@/assets/constants";
+import { BLOG_TAGS, MIN_TAGS, TAG_LIMIT } from "@/assets/constants";
 import { Error } from "./Error";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -48,8 +48,11 @@ export const CreateBlogForm = () => {
 
     if (loading) return;
 
-    if (tags.length > TAG_LIMIT) {
+    if (tags.length > TAG_LIMIT ) {
       setError(`Limite de tags alcanzado, puedes tener hasta ${TAG_LIMIT} tags`);
+      return;
+    } else if (tags.length < MIN_TAGS) {
+      setError(`Debe tener al menos un tag`);
       return;
     }
 
@@ -103,7 +106,7 @@ export const CreateBlogForm = () => {
             <Input
               type="text"
               name="title"
-              placeholder="Título"
+              placeholder="Título*"
               value={data.title}
               onChange={handleChange}
               required
@@ -117,7 +120,7 @@ export const CreateBlogForm = () => {
             />
             <TextArea
               name="description"
-              placeholder="Descripción"
+              placeholder="Descripción*"
               value={data.description}
               onChange={handleChange}
               className="h-full"
@@ -142,7 +145,7 @@ export const CreateBlogForm = () => {
         <div className="flex flex-col gap-theme-md w-full">
           <TextArea
             name="content"
-            placeholder="Contenido"
+            placeholder="Contenido*"
             value={data.content}
             onChange={handleChange}
             minHeight={500}

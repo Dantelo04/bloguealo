@@ -25,7 +25,7 @@ export const AccountButton = ({
           className="rounded-full"
         />
       ) : (
-        <div className="bg-primary/10 rounded-full flex items-center justify-center" style={{ width: `${width}px`, height: `${height}px` }}>
+        <div className="bg-primary-fade rounded-full flex items-center justify-center" style={{ width: `${width}px`, height: `${height}px` }}>
           <FaUser className="text-primary w-3 h-3" />
         </div>
       )}

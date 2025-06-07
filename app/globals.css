@@ -21,6 +21,7 @@
   --gap-lg: 32px;
   --gap-xl: 48px;
   --horizontal-padding: 16px;
+  --primary-fade: #e7e6ed;
 }
 
 @theme {
@@ -43,6 +44,7 @@
   --spacing-theme-lg: var(--gap-lg);
   --spacing-theme-xl: var(--gap-xl);
   --spacing-horizontal-padding: var(--horizontal-padding);
+  --color-primary-fade: var(--primary-fade);
 }
 
 body {

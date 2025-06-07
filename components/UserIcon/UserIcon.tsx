@@ -10,7 +10,7 @@ interface UserIconProps {
 
 export const UserIcon = ({ image, width, height }: UserIconProps) => {
   return (
-    <div className="bg-primary/10 rounded-full flex items-center justify-center" style={{ width: `${width}px`, height: `${height}px` }}>
+    <div className="bg-primary-fade rounded-full flex items-center justify-center" style={{ width: `${width}px`, height: `${height}px` }}>
       {image ? (
         <Image src={image} alt="user" width={width} height={height} />
       ) : (

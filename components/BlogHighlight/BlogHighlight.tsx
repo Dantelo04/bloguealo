@@ -23,7 +23,7 @@ export const BlogHighlight = ({ title, description, image, author, date, link }:
             <p className='text-lg text-center max-w-[500px]'>{description}</p>
             {author && <Author author={author} date={date} />}
             {link && <CustomLink href={link}>
-                <span>Read More</span>
+                <span>Leer más</span>
                 <CgArrowRight className='w-4 h-4'/>
             </CustomLink>}
         </div>

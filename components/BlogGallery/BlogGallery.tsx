@@ -10,17 +10,19 @@ interface BlogGalleryProps {
 }
 
 export const BlogGallery = ({
-  blogs,
+  blogs = [],
   title = "Últimas publicaciones",
   link,
 }: BlogGalleryProps) => {
+  const safeBlogs = blogs || [];
+  
   return (
     <div className="flex flex-col gap-theme-sm w-full max-w-[var(--spacing-content-width)]">
       <TitleSection title={title} link={link} />
-      {blogs && blogs.length > 0 ? (
+      {safeBlogs.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-theme-sm mt-2">
-        {blogs.map((blog, index) => (
-            <BlogCard blog={blog} key={index}  />
+          {safeBlogs.map((blog, index) => (
+            <BlogCard blog={blog} key={index} />
           ))}
         </div>
       ) : (

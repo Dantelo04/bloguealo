@@ -2,21 +2,27 @@
 
 import { Content } from "@/components/Content/Content";
 import { authClient } from "@/lib/auth-client";
-import { redirect } from "next/navigation";
 import { Button } from "@/components/Button/Button";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { FaUser } from "react-icons/fa";
 import { BlogGallery } from "@/components/BlogGallery/BlogGallery";
 import { TitleSection } from "@/components/TitleSection/TitleSection";
+import { useQuery } from "@tanstack/react-query";
+import { Loader } from "@/components/Loader/Loader";
+import { getUserBlogs } from "@/lib/actions/getUserBlogs";
 
 export default function Account() {
-  const router = useRouter();
-  const { data: session, isPending, error } = authClient.useSession();
-
-  if (!session && !isPending) {
-    redirect("/login");
-  }
+  const { data: session } = authClient.useSession();
+  const {
+    data: blogs,
+    isPending: isBlogsPending,
+    error: blogsError,
+  } = useQuery({
+    queryKey: ["blogs", session?.user?.id],
+    queryFn: () => getUserBlogs(session?.user?.id || ""),
+    enabled: !!session?.user?.id,
+    initialData: [],
+  });
 
   const handleSignOut = async () => {
     await authClient.signOut({
@@ -27,16 +33,6 @@ export default function Account() {
       },
     });
   };
-
-  if (isPending) {
-    return (
-      <Content minHeight="min-h-screen" gap="lg:gap-theme-lg gap-theme-md">
-        <div className="flex justify-center items-center w-full h-[50vh]">
-          <p>Loading...</p>
-        </div>
-      </Content>
-    );
-  }
 
   return (
     <Content minHeight="min-h-screen" gap="lg:gap-theme-lg gap-theme-md">
@@ -52,9 +48,7 @@ export default function Account() {
                 className="rounded-full object-cover"
               />
             ) : (
-              <div
-                className="bg-primary/10 rounded-full flex items-center justify-center w-32 h-32"
-              >
+              <div className="bg-primary/10 rounded-full flex items-center justify-center w-32 h-32">
                 <FaUser className="text-primary w-16 h-16" />
               </div>
             )}
@@ -80,14 +74,15 @@ export default function Account() {
           </div>
         </div>
 
-        <Button
-          onClick={handleSignOut}
-          variant="primary"
-        >
+        <Button onClick={handleSignOut} variant="primary">
           Sign Out
         </Button>
       </div>
-      <BlogGallery title="Mis publicaciones" />
+      {isBlogsPending ? (
+        <Loader />
+      ) : (
+        <BlogGallery title="Mis publicaciones" blogs={blogs} />
+      )}
     </Content>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { SocialMediaButton } from '../Button/SocialMediaButton'
 import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa'
 import { LikeButton } from '../Button/LikeButton'
@@ -19,6 +19,7 @@ export const BlogAside = ({ likes, liked, onClick, author, date }: BlogAsideProp
   const { isPending, error, data } = useQuery({
     queryKey: ['user', author],
     queryFn: () => getUserById(author || ""),
+    enabled: !!author,
   });
 
   return (

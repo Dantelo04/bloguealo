@@ -11,7 +11,7 @@ export async function GET() {
     // Ensure database connection
     await connectDB();
 
-    const blogs = await Blog.find({}).exec();
+    const blogs = await Blog.find({}).sort({ createdAt: -1 }).exec();
 
     const blogsWithAuthor = await Promise.all(
       blogs.map(async (blog) => {
@@ -68,10 +68,10 @@ export async function POST(request: NextRequest) {
     // Get author details from the native MongoDB collection
     const author = await getNativeUserById(session.user.id);
 
-    console.log('Author data:', {
+    console.log("Author data:", {
       id: session.user.id,
       authorFromDB: author,
-      name: author?.name
+      name: author?.name,
     });
 
     //find blogs with the same author_id
@@ -85,15 +85,16 @@ export async function POST(request: NextRequest) {
         : author?.role === "user"
         ? 10
         : 1;
-    
+
     const tag_limit = 3;
 
     const role_limit_message = {
       admin: "You have reached the maximum number of blogs",
       premium: "You have reached the maximum number of blogs",
       user: "You have reached the maximum number of blogs, consider upgrading to a premium plan",
-      default: "You have reached the maximum number of blogs, verify your account to create more blogs",
-    }
+      default:
+        "You have reached the maximum number of blogs, verify your account to create more blogs",
+    };
 
     if (blogs.length < limit) {
       try {
@@ -107,27 +108,35 @@ export async function POST(request: NextRequest) {
           image,
         };
 
-        console.log('Attempting to create blog with data:', blogData);
+        console.log("Attempting to create blog with data:", blogData);
 
         const newBlog = await Blog.create(blogData);
 
-        console.log('Created blog:', newBlog);
+        console.log("Created blog:", newBlog);
 
-        return NextResponse.json({ 
-          message: "Blog created",
-          blog: newBlog 
-        }, { status: 201 });
+        return NextResponse.json(
+          {
+            message: "Blog created",
+            blog: newBlog,
+          },
+          { status: 201 }
+        );
       } catch (error) {
-        console.error('Error creating blog:', error);
-        return NextResponse.json({ 
-          error: "Failed to create blog",
-          details: error instanceof Error ? error.message : 'Unknown error'
-        }, { status: 500 });
+        console.error("Error creating blog:", error);
+        return NextResponse.json(
+          {
+            error: "Failed to create blog",
+            details: error instanceof Error ? error.message : "Unknown error",
+          },
+          { status: 500 }
+        );
       }
-    } 
-    else {
+    } else {
       return NextResponse.json(
-        { error: role_limit_message[author?.role as keyof typeof role_limit_message] },
+        {
+          error:
+            role_limit_message[author?.role as keyof typeof role_limit_message],
+        },
         { status: 400 }
       );
     }

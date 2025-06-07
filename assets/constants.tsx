@@ -186,3 +186,5 @@ export const blogsSample = [
   };
 
   export const TAG_LIMIT = 3;
+
+  export const MIN_TAGS = 1;

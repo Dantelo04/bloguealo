@@ -11,14 +11,14 @@ export async function GET(
   try {
     // Ensure database connection
     await connectDB();
-    
+
     const blogId = params.id;
     const blog = await Blog.findById(blogId);
-    
+
     if (!blog) {
       return NextResponse.json({ error: "Blog not found" }, { status: 404 });
     }
-    
+
     return NextResponse.json(blog, { status: 200 });
   } catch (error) {
     console.error("Error fetching blog:", error);
@@ -56,7 +56,7 @@ export async function DELETE(
     }
 
     // Check if the current user is the author of the blog
-    if (blog.author.toString() !== session.user.id) {
+    if (blog.author_id.toString() !== session.user.id) {
       return NextResponse.json(
         { error: "You can only delete your own blogs" },
         { status: 403 }

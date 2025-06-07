@@ -6,10 +6,15 @@
     height: auto;
 }
 
+.blogContent div {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
 .blogContent h1 {
     font-size: 2.5rem;
     font-weight: 700;
-    margin: 2rem 0 1.5rem;
     color: #1a1a1a;
     text-align: start;
     width: 100%;
@@ -18,7 +23,6 @@
 .blogContent h2 {
     font-size: 2rem;
     font-weight: 700;
-    margin: 1.75rem 0 1.25rem;
     color: #1a1a1a;
     width: 100%;
     text-align: start;
@@ -27,7 +31,6 @@
 .blogContent h3 {
     font-size: 1.75rem;
     font-weight: 600;
-    margin: 1.5rem 0 1rem;
     color: #1a1a1a;
     width: 100%;
     text-align: start;
@@ -36,7 +39,6 @@
 .blogContent h4 {
     font-size: 1.5rem;
     font-weight: 600;
-    margin: 1.25rem 0 0.75rem;
     color: #1a1a1a;
     width: 100%;
     text-align: start;
@@ -45,7 +47,6 @@
 .blogContent p {
     font-size: 1.125rem;
     line-height: 1.75;
-    margin-bottom: 1.25rem;
     color: #374151;
     text-align: start;
 }
@@ -62,7 +63,6 @@
 
 .blogContent ul,
 .blogContent ol {
-    margin: 1.25rem 0;
     padding-left: 1.5rem;
 }
 
@@ -83,7 +83,7 @@
 .blogContent blockquote {
     border-left: 4px solid #e5e7eb;
     padding-left: 1rem;
-    margin: 1.5rem 0;
+    margin: 1.5rem 0;   
     font-style: italic;
     color: #4b5563;
 }
@@ -131,4 +131,33 @@
 .blogContent th {
     background-color: #f9fafb;
     font-weight: 600;
+}
+
+/* Blog sections */
+.blog-intro {
+    margin-bottom: 2rem;
+}
+
+.blog-section {
+    margin-bottom: 3rem;
+}
+
+.blog-image {
+    width: 100%;
+    margin: 1.5rem 0;
+}
+
+.blog-quote {
+    margin: 2rem 0;
+}
+
+.code-block {
+    width: 100%;
+    margin: 1.5rem 0;
+}
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    margin: 1.5rem 0;
 }

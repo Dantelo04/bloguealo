@@ -21,12 +21,13 @@ export const TextArea = ({
 }: TextAreaProps) => {
   return (
     <textarea
-      className={`w-full border border-black rounded-md px-2 min-h-[${minHeight}px] py-1 outline-none ${className}`}
+      className={`w-full border border-black rounded-md px-2 py-1 outline-none ${className}`}
       name={name}
       placeholder={placeholder}
       value={value}
       onChange={onChange}
       required={required}
+      style={{ resize: "none", minHeight: `${minHeight}px` }}
     ></textarea>
   );
 };

@@ -8,6 +8,7 @@ import { Tag } from '@/components/BlogCard/Tag'
 import { BLOG_TAGS } from '../../assets/constants'
 import { useQuery } from '@tanstack/react-query'
 import { getAllBlogs } from '@/lib/actions/getAllBlogs'
+import { Loader } from '@/components/Loader/Loader'
 
 export default function Blog() {
   const [search, setSearch] = useState('')
@@ -36,7 +37,7 @@ export default function Blog() {
             ))}
         </div>
       </div>
-      {!isPending && <BlogGallery title='' blogs={data}/>}
+      {isPending ? <Loader /> : <BlogGallery title='' blogs={data}/>}
     </Content>
   )
 }

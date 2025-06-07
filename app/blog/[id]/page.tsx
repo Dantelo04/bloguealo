@@ -9,6 +9,7 @@ import { BlogAside } from "@/components/BlogAside/BlogAside";
 import { BlogContent } from "@/components/BlogContent/BlogContent";
 import { getBlogById } from "@/lib/actions/getBlogById";
 import { useQuery } from "@tanstack/react-query";
+import { Loader } from "@/components/Loader/Loader";
 
 export default function BlogPost() {
   const { id } = useParams();
@@ -19,7 +20,7 @@ export default function BlogPost() {
 
   return (
     <Content minHeight="min-h-screen" gap="lg:gap-theme-lg gap-theme-md">
-      {!isPending && data && (
+      {isPending ? <Loader /> : data && (
         <>
           <BlogHighlight
             title={data?.title || ""}
