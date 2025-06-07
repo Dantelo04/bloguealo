@@ -44,7 +44,7 @@ export const BlogCard = ({
         </div>
       </div>
 
-      <div className="flex flex-col gap-theme-sm">
+      <div className="flex flex-col gap-theme-md">
       <div className="flex justify-between items-center px-theme-md">
         <p className="text-sm text-gray-100">Hecho por {blog.author_name}</p>
         <QueryClientProvider client={queryClient}>
