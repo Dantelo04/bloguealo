@@ -5,6 +5,7 @@ import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { getNativeUserById } from "@/lib/services/getNativeUser";
 import { isValidUrl } from "@/lib/services/isValidUrl";
+import { DEFAULT_BLOG_IMAGE } from "@/assets/constants";
 
 // GET all blogs
 export async function GET(request: NextRequest) {
@@ -100,7 +101,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (!isValidUrl(image)) {
+    if (image && image !== DEFAULT_BLOG_IMAGE && !isValidUrl(image)) {
       return NextResponse.json({ error: "Formato de imagen inválido, utiliza picsum.photos o dejalo en blanco" }, { status: 400 });
     }
 

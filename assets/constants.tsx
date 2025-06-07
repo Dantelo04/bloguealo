@@ -189,7 +189,7 @@ export const TAG_LIMIT = 3;
 
 export const MIN_TAGS = 1;
 
-export const VALID_IMAGE_DOMAINS = ["picsum.photos"];
+export const VALID_IMAGE_DOMAINS = ["picsum.photos", ""];
 
 export const PLACEHOLDER_BLOG = `<div>
     <p>Esta es una prueba de contenido, borrala o editala como quieras!</p>
