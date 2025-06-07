@@ -80,12 +80,10 @@ export const CreateBlogForm = () => {
       setTags([]);
       setError(null);
 
-      // Redirect to home page or blog list
       router.push("/");
       router.refresh();
     } catch (err) {
-      console.error("Error al crear la publicación:", err);
-      if (axios.isAxiosError(err)) {
+      if (axios.isAxiosError(err)) {        
         setError(err.response?.data?.error || "Error al crear la publicación");
       } else {
         setError("Error al crear la publicación");

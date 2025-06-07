@@ -108,11 +108,7 @@ export async function POST(request: NextRequest) {
           image,
         };
 
-        console.log("Attempting to create blog with data:", blogData);
-
         const newBlog = await Blog.create(blogData);
-
-        console.log("Created blog:", newBlog);
 
         return NextResponse.json(
           {
@@ -134,8 +130,8 @@ export async function POST(request: NextRequest) {
     } else {
       return NextResponse.json(
         {
-          error:
-            role_limit_message[author?.role as keyof typeof role_limit_message],
+          error: "Haz alcanzado el límite de blogs, considera aumentar tu plan para crear más",
+          details: role_limit_message[author?.role as keyof typeof role_limit_message],
         },
         { status: 400 }
       );

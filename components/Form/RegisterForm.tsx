@@ -46,7 +46,7 @@ export const RegisterForm = () => {
 
   return (
     <div className="flex flex-col gap-theme-sm w-full">
-      <div className="inline-flex items-center justify-center">
+      <div className="flex lg:flex-row flex-col items-center justify-center">
         <span className="text-xl">Registrarse a &nbsp;</span>
         <Logo />
       </div>

@@ -44,7 +44,7 @@ export const LoginForm = () => {
 
   return (
     <div className="flex flex-col gap-theme-sm w-full">
-      <div className="inline-flex items-center justify-center">
+      <div className="flex lg:flex-row flex-col items-center justify-center">
         <span className="text-xl">Iniciar sesión en &nbsp;</span>
         <Logo />
       </div>
