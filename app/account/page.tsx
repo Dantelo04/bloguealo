@@ -75,13 +75,13 @@ export default function Account() {
         </div>
 
         <Button onClick={handleSignOut} variant="primary">
-          Sign Out
+          Cerrar sesión
         </Button>
       </div>
       {isBlogsPending ? (
         <Loader />
       ) : (
-        <BlogGallery title="Mis publicaciones" blogs={blogs}/>
+        <BlogGallery title="Mis publicaciones" blogs={blogs} editable={true}/>
       )}
     </Content>
   );

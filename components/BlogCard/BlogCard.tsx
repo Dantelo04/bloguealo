@@ -7,6 +7,8 @@ import { Button } from "../Button/Button";
 import { LikeButton } from "../Button/LikeButton";
 import { Blog } from "@/lib/models/Blog";
 import { DeleteButton } from "../DeleteButton/DeleteButton";
+import { authClient } from "@/lib/auth-client";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 interface BlogCardProps {
   blog: Blog;
@@ -17,7 +19,8 @@ export const BlogCard = ({
   blog,
   editable = false,
 }: BlogCardProps) => {
-  const [like, setLiked] = useState(false);
+  const { data: session, isPending } = authClient.useSession();
+  const queryClient = new QueryClient();
 
   return (
     <div className="flex flex-col justify-between overflow-hidden rounded-md border w-full pb-theme-md">
@@ -42,12 +45,14 @@ export const BlogCard = ({
       </div>
 
       <div className="flex justify-between items-center px-theme-md pb-theme-md">
-        <p className="text-sm text-gray-100">Made by {blog.author_name}</p>
-        <LikeButton
-          liked={like}
-          likes={blog.likes.length}
-          onClick={() => setLiked(!like)}
-        />
+        <p className="text-sm text-gray-100">Hecho por {blog.author_name}</p>
+        <QueryClientProvider client={queryClient}>
+          <LikeButton
+            liked={blog.likes.includes(session?.user?.id || "")}
+            likes={blog.likes.length}
+            blogId={null}
+          />
+        </QueryClientProvider>
       </div>
 
       <div className="w-full flex items-center justify-between px-theme-md">

@@ -7,15 +7,17 @@ interface AccountButtonProps {
   avatarImage?: string | null;
   width: number;
   height: number;
+  onClick?: () => void;
 }
 
 export const AccountButton = ({
   avatarImage,
   width,
   height,
+  onClick,
 }: AccountButtonProps) => {
   return (
-    <Link href="/account">
+    <Link href="/account" onClick={onClick}>
       {avatarImage ? (
         <Image
           src={avatarImage}

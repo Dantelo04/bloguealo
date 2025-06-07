@@ -6,10 +6,10 @@ import { LikeButton } from '../Button/LikeButton'
 interface BlogFooterProps {
     likes: number;
     liked: boolean;
-    onClick: () => void;
+    blogId: string;
 }
 
-export const BlogFooter = ({ likes, liked, onClick }: BlogFooterProps) => {
+export const BlogFooter = ({ likes, liked, blogId }: BlogFooterProps) => {
   return (
     <div className='lg:inline-flex hidden justify-between items-center w-full max-w-[var(--spacing-content-width)] py-theme-sm border-t border-black'>
         <div className='flex gap-theme-sm'>
@@ -23,7 +23,7 @@ export const BlogFooter = ({ likes, liked, onClick }: BlogFooterProps) => {
                 <FaInstagram />
             </SocialMediaButton>
         </div>
-        <LikeButton liked={liked} likes={likes} onClick={onClick}/>
+        <LikeButton liked={liked} likes={likes} blogId={blogId}/>
     </div>
   )
 }

@@ -37,7 +37,8 @@ export const BlogPreview = ({
       <div className="flex lg:flex-row flex-col-reverse w-full lg:gap-theme-xl gap-2 max-w-[var(--spacing-content-width)] min-h-screen relative">
         <QueryClientProvider client={queryClient}>
           <BlogAside
-            likes={100}
+            blogId={""}
+            likes={0}
             liked={false}
             author={session?.user?.id || null}
             date={today}

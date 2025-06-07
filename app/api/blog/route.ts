@@ -4,14 +4,50 @@ import { Blog } from "@/lib/models/Blog";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { getNativeUserById } from "@/lib/services/getNativeUser";
+import { isValidUrl } from "@/lib/services/isValidUrl";
 
 // GET all blogs
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
     // Ensure database connection
     await connectDB();
 
-    const blogs = await Blog.find({}).sort({ createdAt: -1 }).exec();
+    const { searchParams } = new URL(request.url);
+    
+    // Get pagination parameters from query string
+    const limit = searchParams.get('limit') ? parseInt(searchParams.get('limit')!) : undefined;
+    const skip = searchParams.get('skip') ? parseInt(searchParams.get('skip')!) : 0;
+
+    // Validate pagination parameters
+    if (limit !== undefined && limit <= 0) {
+      return NextResponse.json(
+        { error: "Limit must be greater than 0" },
+        { status: 400 }
+      );
+    }
+
+    if (skip !== undefined && skip < 0) {
+      return NextResponse.json(
+        { error: "Skip must be greater than or equal to 0" },
+        { status: 400 }
+      );
+    }
+
+    // Build the query
+    let query = Blog.find({}).sort({ createdAt: -1 });
+    
+    // Apply pagination if limit is provided
+    if (limit !== undefined) {
+      query = query.limit(limit);
+    }
+    if (skip !== undefined && skip > 0) {
+      query = query.skip(skip);
+    }
+
+    const blogs = await query.exec();
+
+    // Get total count for pagination info
+    const total = await Blog.countDocuments();
 
     const blogsWithAuthor = await Promise.all(
       blogs.map(async (blog) => {
@@ -28,7 +64,15 @@ export async function GET() {
       })
     );
 
-    return NextResponse.json({ blogs: blogsWithAuthor }, { status: 200 });
+    return NextResponse.json({
+      blogs: blogsWithAuthor,
+      pagination: {
+        total,
+        limit: limit || total,
+        skip,
+        hasMore: skip + blogs.length < total
+      }
+    }, { status: 200 });
   } catch (error) {
     console.error("Error fetching blogs:", error);
 
@@ -54,6 +98,10 @@ export async function POST(request: NextRequest) {
         { error: "Title, content, description and tags are required" },
         { status: 400 }
       );
+    }
+
+    if (!isValidUrl(image)) {
+      return NextResponse.json({ error: "Formato de imagen inválido, utiliza picsum.photos o dejalo en blanco" }, { status: 400 });
     }
 
     // Get the current user from the session

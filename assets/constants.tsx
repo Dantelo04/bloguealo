@@ -179,7 +179,7 @@ export const blogsSample = [
   export const DEFAULT_BLOG_IMAGE = "/default-background.webp";
 
   export const DateFormat = (date: string) => {
-    return new Date(date).toLocaleDateString("en-US", {
+    return new Date(date).toLocaleDateString("es-ES", {
       month: "long",
       day: "numeric",
     });
@@ -188,3 +188,7 @@ export const blogsSample = [
   export const TAG_LIMIT = 3;
 
   export const MIN_TAGS = 1;
+
+  export const VALID_IMAGE_DOMAINS = [
+    "picsum.photos",
+  ]

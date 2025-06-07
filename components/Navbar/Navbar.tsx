@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Logo } from "../Logo/Logo";
 import Link from "next/link";
 import { Button } from "../Button/Button";
@@ -14,13 +14,17 @@ import { NAV_ITEMS } from "@/assets/constants";
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { data: session, isPending, error } = authClient.useSession();
-  
+
   const handleMenuOpen = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
   return (
-    <nav className="w-full flex justify-center border-b backdrop-blur-md bg-white/75 sticky top-0 z-10">
+    <nav
+      className={`w-full flex justify-center border-b backdrop-blur-md bg-white/75 sticky top-0 z-10 overflow-x-clip ${
+        isMenuOpen ? "overflow-x-visible" : "overflow-x-clip"
+      }`}
+    >
       <div className="flex justify-between items-center py-4 px-[16px] max-w-[calc(var(--spacing-content-width)+32px)] w-full">
         <Logo />
         <div className="lg:flex hidden gap-theme-xl items-center">
@@ -32,7 +36,11 @@ export const Navbar = () => {
         </div>
         <div className="lg:flex hidden gap-theme-sm items-center">
           {session && !isPending && !error ? (
-            <AccountButton avatarImage={session.user?.avatar} width={36} height={36} />
+            <AccountButton
+              avatarImage={session.user?.avatar}
+              width={36}
+              height={36}
+            />
           ) : isPending ? (
             <div></div>
           ) : (
@@ -54,32 +62,53 @@ export const Navbar = () => {
           </Button>
         </div>
         <div className="lg:hidden flex gap-theme-sm items-center">
-          <Link href="/login" className="text-xl">
-            Ingresar
-          </Link>
+          {!session && !isPending && (
+            <Link href="/login" className="text-xl">
+              Ingresar
+            </Link>
+          )}
+          {session && !isPending && !error && (
+            <AccountButton
+              avatarImage={session.user?.avatar}
+              width={36}
+              height={36}
+            />
+          )}
           <Button
             className="rounded-full px-2 py-2"
             variant="secondary"
-            onClick={handleMenuOpen}
+            onClick={() => setIsMenuOpen(true)}
           >
             <BiMenu className="w-7 h-7" />
           </Button>
         </div>
         <div
           className={`${
-            isMenuOpen ? "top-0" : "-top-[100vh]"
-          } lg:hidden h-screen w-screen absolute left-0 bg-white duration-400 flex flex-col px-horizontal-padding py-theme-md gap-theme-lg`}
+            isMenuOpen
+              ? "translate-x-[0%] opacity-100"
+              : "translate-x-[100%] opacity-0"
+          } lg:hidden h-screen w-screen absolute -top-[8px] left-0 bg-white duration-300 flex flex-col px-horizontal-padding py-theme-md gap-theme-lg`}
         >
           <div className="flex justify-between items-center">
             <Logo />
             <div className="lg:hidden flex gap-theme-sm items-center">
-              <Link href="/login" className="text-xl">
-                Ingresar
-              </Link>
+              {!session && !isPending && (
+                <Link href="/login" className="text-xl">
+                  Ingresar
+                </Link>
+              )}
+              {session && !isPending && !error && (
+                <AccountButton
+                  avatarImage={session.user?.avatar}
+                  width={36}
+                  height={36}
+                  onClick={() => setIsMenuOpen(false)}
+                />
+              )}
               <Button
                 className="rounded-full px-2 py-2"
                 variant="secondary"
-                onClick={handleMenuOpen}
+                onClick={() => setIsMenuOpen(false)}
               >
                 <IoMdClose className="w-7 h-7" />
               </Button>
@@ -87,7 +116,7 @@ export const Navbar = () => {
           </div>
           <div className="flex flex-col gap-theme-lg text-xl">
             {NAV_ITEMS.map((item) => (
-              <Link key={item.href} href={item.href}>
+              <Link key={item.href} href={item.href} onClick={() => setIsMenuOpen(false)}>
                 {item.label}
               </Link>
             ))}

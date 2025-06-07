@@ -1,25 +1,21 @@
 import React, { useState } from "react";
 import { SimpleBlogPreview } from "./SimpleBlogPreview";
-import { blogsSample } from "@/assets/constants";
+import { Blog } from "@/lib/models/Blog";
 
-export const SimpleBlogList = () => {
-  const [blogs, setBlogs] = useState(blogsSample.slice(0, 3));
+interface SimpleBlogListProps {
+  blogs: Blog[];
+}
 
+export const SimpleBlogList = ({ blogs }: SimpleBlogListProps) => {
   return (
     <div className="flex flex-col gap-theme-sm">
       <h4>Ultimos Blogs</h4>
       <div className="flex flex-col gap-theme-sm">
         {blogs.map((blog, index) => (
           <SimpleBlogPreview
-            key={blog.id}
-            index={index}
-            title={blog.title}
-            description={blog.description}
-            image={blog.image}
-            date={blog.date}
-            author={blog.author}
+            key={blog._id}
+            blog={blog}
             borderBottom={index !== blogs.length - 1}
-            link={`/blog/${blog.id}`}
           />
         ))}
       </div>

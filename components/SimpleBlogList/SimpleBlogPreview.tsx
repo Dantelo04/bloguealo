@@ -1,25 +1,15 @@
 import React from "react";
+import { Blog } from "@/lib/models/Blog";
+import { DateFormat } from "@/assets/constants";
 
 interface SimpleBlogPreviewProps {
-  title: string;
-  description: string;
-  image: string;
-  date: string;
-  author: string;
-  index: number;
+  blog: Blog;
   borderBottom: boolean;
-  link: string;
 }
 
 export const SimpleBlogPreview = ({
-  title,
-  description,
-  image,
-  date,
-  author,
-  index,
+  blog,
   borderBottom,
-  link,
 }: SimpleBlogPreviewProps) => {
   return (
     <div
@@ -27,14 +17,14 @@ export const SimpleBlogPreview = ({
         borderBottom ? "border-b border-black/15" : ""
       }`}
       onClick={() => {
-        window.location.href = link;
+        window.location.href = `/blog/${blog._id}`;
       }}
     >
-      <h5>{title}</h5>
+      <h5>{blog.title}</h5>
       <div className="flex gap-2 text-sm text-black/75">
-        <p>{author}</p>
+        <p>{blog.author_name}</p>
         <p>|</p>
-        <p>{date}</p>
+        <p>{DateFormat(new Date(blog.createdAt).toISOString())}</p>
       </div>
     </div>
   );

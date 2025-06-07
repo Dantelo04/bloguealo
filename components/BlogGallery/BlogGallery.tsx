@@ -8,12 +8,14 @@ interface BlogGalleryProps {
   blogs?: Blog[];
   title?: string;
   link?: string;
+  editable?: boolean;
 }
 
 export const BlogGallery = ({
   blogs = [],
   title = "Últimas publicaciones",
   link,
+  editable = false,
 }: BlogGalleryProps) => {
   const safeBlogs = blogs || [];
   const { data: session, isPending } = authClient.useSession();
@@ -29,7 +31,7 @@ export const BlogGallery = ({
                 blog={blog}
                 key={index}
                 editable={
-                  isPending ? false : session?.user?.id === blog.author_id
+                  isPending || !editable ? false : session?.user?.id === blog.author_id
                 }
               />
             );
