@@ -12,9 +12,8 @@ import { Loader } from '@/components/Loader/Loader'
 
 export default function Blog() {
   const [search, setSearch] = useState('')
-  const [tags, setTags] = useState(BLOG_TAGS)
   const [selectedTag, setSelectedTag] = useState<string[] | null>(null)
-  const { data, isPending, error } = useQuery({
+  const { data, isPending } = useQuery({
     queryKey: ['blogs'],
     queryFn: () => getAllBlogs()
   })
@@ -32,7 +31,7 @@ export default function Blog() {
       <div className='flex flex-col gap-theme-sm w-full max-w-[var(--spacing-content-width)]'>
         <SearchInput value={search} onChange={(e) => setSearch(e.target.value)}/>
         <div className='flex flex-wrap gap-2'>
-            {tags.map((tag) => (
+            {BLOG_TAGS.map((tag) => (
               <Tag key={tag} selected={selectedTag?.includes(tag)} onClick={() => handleTagClick(tag)}>{tag}</Tag>
             ))}
         </div>

@@ -9,7 +9,6 @@ import { useQuery } from "@tanstack/react-query";
 import { getAllBlogsWithLimit } from "@/lib/actions/getAllBlogsWithLimit";
 
 interface BlogAsideProps {
-  onClick?: () => void;
   author?: string | null;
   date?: string;
   blogId: string | null;
@@ -20,7 +19,6 @@ interface BlogAsideProps {
 export const BlogAside = ({
   likes,
   liked,
-  onClick,
   author,
   date,
   blogId,
@@ -50,7 +48,7 @@ export const BlogAside = ({
         />
       </div>
       <hr className="border-black" />
-      <SimpleBlogList blogs={blogs || []} />
+      {!isBlogsPending && blogs && <SimpleBlogList blogs={blogs} />}
       <hr className="border-black" />
       <h4 className="lg:flex hidden">Compartir</h4>
       <div className="flex gap-theme-sm">

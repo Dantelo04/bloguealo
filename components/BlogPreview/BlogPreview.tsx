@@ -6,7 +6,7 @@ import { BlogHighlight } from "../BlogHighlight/BlogHighlight";
 import { BlogAside } from "../BlogAside/BlogAside";
 import { TitleSection } from "../TitleSection/TitleSection";
 import { authClient } from "@/lib/auth-client";
-import { DateFormat, DEFAULT_BLOG_IMAGE } from "@/assets/constants";
+import { DEFAULT_BLOG_IMAGE } from "@/assets/constants";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 interface BlogPreviewProps {
   title: string;

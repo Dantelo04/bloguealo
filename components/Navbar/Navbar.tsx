@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Logo } from "../Logo/Logo";
 import Link from "next/link";
 import { Button } from "../Button/Button";
@@ -14,10 +14,6 @@ import { NAV_ITEMS } from "@/assets/constants";
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { data: session, isPending, error } = authClient.useSession();
-
-  const handleMenuOpen = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
 
   return (
     <nav

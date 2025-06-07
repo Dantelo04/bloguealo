@@ -9,6 +9,7 @@ export const isValidUrl = (url: string) => {
           VALID_IMAGE_DOMAINS.includes(parsedUrl.hostname)
         );
       } catch (err) {
+        console.error(err);
         return false;
       }
 };

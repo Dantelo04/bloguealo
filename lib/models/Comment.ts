@@ -25,3 +25,9 @@ const commentSchema = new Schema<Comment>(
     },
     { timestamps: true }
 )
+
+if (mongoose.models.Comment) {
+    delete mongoose.models.Comment;
+}
+
+export const Comment = mongoose.model<Comment>('Comment', commentSchema); 

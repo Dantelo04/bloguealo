@@ -14,7 +14,7 @@ import { authClient } from "@/lib/auth-client";
 
 export default function BlogPost() {
   const { id } = useParams();
-  const { data: blog, isPending, error } = useQuery({
+  const { data: blog, isPending } = useQuery({
     queryKey: ['blog', id],
     queryFn: () => getBlogById(id as string),
   });

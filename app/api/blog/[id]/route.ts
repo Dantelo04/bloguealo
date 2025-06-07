@@ -6,13 +6,13 @@ import { headers } from "next/headers";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     // Ensure database connection
     await connectDB();
 
-    const blogId = params.id;
+    const blogId = (await params).id;
     const blog = await Blog.findById(blogId);
 
     if (!blog) {
@@ -31,13 +31,13 @@ export async function GET(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     // Ensure database connection
     await connectDB();
 
-    const blogId = params.id;
+    const blogId = (await params).id;
 
     // Get the current user from the session
     const session = await auth.api.getSession({

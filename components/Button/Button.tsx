@@ -32,6 +32,7 @@ export const Button = ({
     <button
       className={`${className} ${variantStyle} ${disabled ? "opacity-50 cursor-not-allowed" : ""} cursor-pointer hover:bg-primary/75 transition-colors duration-200 `}
       onClick={onClick}
+      type={type}
     >
       {children}
     </button>

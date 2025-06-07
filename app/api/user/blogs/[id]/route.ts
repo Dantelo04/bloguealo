@@ -14,11 +14,11 @@ type SafeUser = {
   phone?: string | null;
 };
 
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     await connectDB();
 
-    const { id } = await params;
+    const id = (await params).id;
     const { searchParams } = new URL(request.url);
     const includeBlogs = searchParams.get("includeBlogs") === "true";
 

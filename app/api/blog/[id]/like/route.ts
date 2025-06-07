@@ -6,7 +6,7 @@ import { headers } from "next/headers";
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> } 
 ) {
   try {
     // Ensure database connection
@@ -21,7 +21,7 @@ export async function POST(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const blogId = await params.id;
+    const blogId = (await params).id;
     const blog = await Blog.findById(blogId);
 
     if (!blog) {

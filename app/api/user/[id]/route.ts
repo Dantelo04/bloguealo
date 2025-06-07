@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { connectDB, db } from "@/lib/config/db";
+import { connectDB } from "@/lib/config/db";
 import { getNativeUserById } from "@/lib/services/getNativeUser";
 import { ObjectId } from "mongodb";
 
@@ -13,12 +13,12 @@ type SafeUser = {
   phone?: string | null;
 };
 
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     // Ensure database connection
     await connectDB();
 
-    const { id } = await params;
+    const id = (await params).id;
 
     // Validate ID format
     if (!id || !ObjectId.isValid(id)) {

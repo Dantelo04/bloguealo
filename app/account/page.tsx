@@ -16,7 +16,6 @@ export default function Account() {
   const {
     data: blogs,
     isPending: isBlogsPending,
-    error: blogsError,
   } = useQuery({
     queryKey: ["blogs", session?.user?.id],
     queryFn: () => getUserBlogs(session?.user?.id || ""),

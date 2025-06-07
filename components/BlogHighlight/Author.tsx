@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 import { DateFormat } from "@/assets/constants";
 import { User } from "better-auth";
 import { UserIcon } from "../UserIcon/UserIcon";

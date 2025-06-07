@@ -53,7 +53,6 @@ const blogSchema = new Schema<Blog>(
   { timestamps: true }
 );
 
-// Delete the model if it exists to ensure we're using the latest schema
 if (mongoose.models.Blog) {
   delete mongoose.models.Blog;
 }
