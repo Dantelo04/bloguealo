@@ -122,6 +122,7 @@ export const CreateBlogForm = () => {
               value={data.description}
               onChange={handleChange}
               className="h-full"
+              maxLength={130}
               required
             />
             <div className="flex flex-wrap gap-2">

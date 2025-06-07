@@ -8,6 +8,7 @@ interface TextAreaProps {
   minHeight?: number;
   className?: string;
   required?: boolean;
+  maxLength?: number;
 }
 
 export const TextArea = ({
@@ -18,6 +19,7 @@ export const TextArea = ({
   minHeight,
   className,
   required,
+  maxLength,
 }: TextAreaProps) => {
   return (
     <textarea
@@ -28,6 +30,7 @@ export const TextArea = ({
       onChange={onChange}
       required={required}
       style={{ resize: "none", minHeight: `${minHeight}px` }}
+      maxLength={maxLength}
     ></textarea>
   );
 };
