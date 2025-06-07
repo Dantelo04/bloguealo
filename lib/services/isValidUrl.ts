@@ -8,8 +8,7 @@ export const isValidUrl = (url: string) => {
           parsedUrl.protocol === 'https:' &&
           VALID_IMAGE_DOMAINS.includes(parsedUrl.hostname)
         );
-      } catch (err) {
-        console.error(err);
+      } catch {
         return false;
       }
 };
