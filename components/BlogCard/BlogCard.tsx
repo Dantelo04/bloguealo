@@ -50,7 +50,7 @@ export const BlogCard = ({
           <LikeButton
             liked={blog.likes.includes(session?.user?.id || "")}
             likes={blog.likes.length}
-            blogId={null}
+            blogId={blog._id}
           />
         </QueryClientProvider>
       </div>

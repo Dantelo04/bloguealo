@@ -1,42 +1,42 @@
 export const SampleBlog = `
-<div class="blog-intro">
-    <p>As we dive deeper into 2024, the web development landscape continues to evolve at an unprecedented pace. From innovative frameworks to groundbreaking technologies, let's explore the trends that are shaping the future of web development.</p>
+<div>
+    <p>A medida que nos adentramos en 2024, el panorama del desarrollo web continúa evolucionando a un ritmo sin precedentes. Desde frameworks innovadores hasta tecnologías revolucionarias, exploremos las tendencias que están dando forma al futuro del desarrollo web.</p>
 </div>
 
-<div class="blog-section">
-    <h2>1. AI-Powered Development Tools</h2>
-    <p>Artificial Intelligence is revolutionizing how we write and debug code. Here are some key developments:</p>
+<div>
+    <h2>1. Herramientas de Desarrollo Impulsadas por IA</h2>
+    <p>La Inteligencia Artificial está revolucionando la forma en que escribimos y depuramos código. Aquí hay algunos desarrollos clave:</p>
     <ul>
-        <li>Intelligent code completion and suggestions</li>
-        <li>Automated testing and bug detection</li>
-        <li>AI-assisted code optimization</li>
-        <li>Natural language to code conversion</li>
+        <li>Autocompletado e sugerencias inteligentes de código</li>
+        <li>Pruebas automatizadas y detección de errores</li>
+        <li>Optimización de código asistida por IA</li>
+        <li>Conversión de lenguaje natural a código</li>
     </ul>
 
-    <div class="blog-image">
-        <img src="https://picsum.photos/1000/500" alt="AI-powered development tools visualization" style="max-width: 100%; height: auto; margin: 20px 0;" />
+    <div></div>
+        <img src="https://picsum.photos/1000/500" alt="Visualización de herramientas de desarrollo impulsadas por IA" style="max-width: 100%; height: auto; margin: 20px 0;" />
     </div>
 
-    <p>These AI-powered tools are not just improving developer productivity but are fundamentally changing how we approach software development. For instance, large language models can now:</p>
+    <p>Estas herramientas impulsadas por IA no solo están mejorando la productividad del desarrollador, sino que están cambiando fundamentalmente la forma en que abordamos el desarrollo de software. Por ejemplo, los modelos de lenguaje grandes ahora pueden:</p>
     <ul>
-        <li>Generate entire components from natural language descriptions</li>
-        <li>Provide contextual documentation and code explanations</li>
-        <li>Suggest performance optimizations based on code analysis</li>
-        <li>Help with code refactoring and modernization</li>
+        <li>Generar componentes completos a partir de descripciones en lenguaje natural</li>
+        <li>Proporcionar documentación contextual y explicaciones de código</li>
+        <li>Sugerir optimizaciones de rendimiento basadas en análisis de código</li>
+        <li>Ayudar con la refactorización y modernización del código</li>
     </ul>
 </div>
 
-<div class="blog-section">
-    <h2>2. Web Performance and Core Web Vitals</h2>
-    <p>Performance metrics have become crucial for modern web applications. Consider these important factors:</p>
+<div>
+    <h2>2. Rendimiento Web y Core Web Vitals</h2>
+    <p>Las métricas de rendimiento se han vuelto cruciales para las aplicaciones web modernas. Considera estos factores importantes:</p>
 
-    <div class="blog-quote">
+    <div>
         <blockquote>
-            "A 100-millisecond delay in load time can cause conversion rates to drop by 7%"
+            "Un retraso de 100 milisegundos en el tiempo de carga puede causar que las tasas de conversión caigan un 7%"
         </blockquote>
     </div>
 
-    <h3>Key Performance Metrics</h3>
+    <h3>Métricas de Rendimiento Clave</h3>
     <ol>
         <li>Largest Contentful Paint (LCP)</li>
         <li>First Input Delay (FID)</li>
@@ -44,10 +44,10 @@ export const SampleBlog = `
     </ol>
 </div>
 
-<div class="blog-section">
-    <h2>3. Code Example: Modern JavaScript Features</h2>
-    <div class="code-block">
-        <pre><code>// Example of modern JavaScript features
+<div>
+    <h2>3. Ejemplo de Código: Características Modernas de JavaScript</h2>
+    <div>
+        <pre><code>// Ejemplo de características modernas de JavaScript
 const fetchData = async () => {
     try {
         const response = await fetch('/api/data');
@@ -58,33 +58,33 @@ const fetchData = async () => {
             processed: true
         }));
     } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('Error al obtener datos:', error);
     }
 };</code></pre>
     </div>
 </div>
 
-<div class="blog-section">
-    <h2>4. The Rise of Web Components</h2>
-    <p>Web Components are becoming increasingly popular for creating reusable UI elements. They offer:</p>
+<div>
+    <h2>4. El Auge de los Web Components</h2>
+    <p>Los Web Components se están volviendo cada vez más populares para crear elementos de UI reutilizables. Ofrecen:</p>
 
-    <div class="table-container">
+    <div>
         <table>
             <tr>
-                <th>Feature</th>
-                <th>Benefit</th>
+                <th>Característica</th>
+                <th>Beneficio</th>
             </tr>
             <tr>
-                <td>Encapsulation</td>
-                <td>Isolated styling and behavior</td>
+                <td>Encapsulación</td>
+                <td>Estilo y comportamiento aislados</td>
             </tr>
             <tr>
-                <td>Reusability</td>
-                <td>Write once, use anywhere</td>
+                <td>Reutilización</td>
+                <td>Escribir una vez, usar en cualquier lugar</td>
             </tr>
             <tr>
-                <td>Framework Agnostic</td>
-                <td>Works with any JavaScript framework</td>
+                <td>Agnóstico de Framework</td>
+                <td>Funciona con cualquier framework JavaScript</td>
             </tr>
         </table>
     </div>
@@ -92,9 +92,9 @@ const fetchData = async () => {
 
 <hr>
 
-<div class="blog-section">
-    <h3>Additional Resources</h3>
-    <p>For more information, check out these resources:</p>
+<div>
+    <h3>Recursos Adicionales</h3>
+    <p>Para más información, consulta estos recursos:</p>
     <ul>
         <li><a href="#">MDN Web Docs</a></li>
         <li><a href="#">Web.dev</a></li>
@@ -102,22 +102,22 @@ const fetchData = async () => {
     </ul>
 </div>
 
-<div class="blog-section">
-    <h2>5. Emerging Trends to Watch</h2>
-    <p>As we look towards the future, several emerging trends are worth keeping an eye on:</p>
+<div>
+    <h2>5. Tendencias Emergentes a Observar</h2>
+    <p>Mientras miramos hacia el futuro, hay varias tendencias emergentes que vale la pena seguir:</p>
     <ul>
-        <li><strong>WebAssembly (Wasm)</strong> - Enabling high-performance code execution in browsers</li>
-        <li><strong>Edge Computing</strong> - Moving computation closer to the end user for faster response times</li>
-        <li><strong>Progressive Web Apps (PWAs)</strong> - Continuing to bridge the gap between web and native applications</li>
-        <li><strong>No-Code/Low-Code Platforms</strong> - Democratizing web development for non-technical users</li>
+        <li><strong>WebAssembly (Wasm)</strong> - Permitiendo la ejecución de código de alto rendimiento en navegadores</li>
+        <li><strong>Edge Computing</strong> - Moviendo la computación más cerca del usuario final para tiempos de respuesta más rápidos</li>
+        <li><strong>Aplicaciones Web Progresivas (PWAs)</strong> - Continuando cerrando la brecha entre aplicaciones web y nativas</li>
+        <li><strong>Plataformas No-Code/Low-Code</strong> - Democratizando el desarrollo web para usuarios no técnicos</li>
     </ul>
 
-    <div class="blog-quote">
+    <div>
         <blockquote>
-            "The future of web development lies in the perfect balance between developer productivity and user experience."
+            "El futuro del desarrollo web reside en el equilibrio perfecto entre la productividad del desarrollador y la experiencia del usuario."
         </blockquote>
     </div>
 
-    <p>Stay tuned for more updates as we continue to explore the evolving landscape of web development!</p>
+    <p>¡Mantente atento para más actualizaciones mientras continuamos explorando el panorama evolutivo del desarrollo web!</p>
 </div>
 `

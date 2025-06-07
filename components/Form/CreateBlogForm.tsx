@@ -6,7 +6,7 @@ import { Button } from "../Button/Button";
 import { TextArea } from "./TextArea";
 import { BlogPreview } from "../BlogPreview/BlogPreview";
 import { Tag } from "../BlogCard/Tag";
-import { BLOG_TAGS, MIN_TAGS, TAG_LIMIT } from "@/assets/constants";
+import { BLOG_TAGS, MIN_TAGS, PLACEHOLDER_BLOG, TAG_LIMIT } from "@/assets/constants";
 import { Error } from "./Error";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -19,7 +19,7 @@ export const CreateBlogForm = () => {
 
   const [data, setData] = useState({
     title: "",
-    content: "",
+    content: PLACEHOLDER_BLOG,
     description: "",
     image: "",
     tags: tags,
@@ -142,6 +142,7 @@ export const CreateBlogForm = () => {
           {error && <Error error={error} />}
         </div>
         <div className="flex flex-col gap-theme-md w-full">
+          <label htmlFor="content">Contenido*</label>
           <TextArea
             name="content"
             placeholder="Contenido*"
