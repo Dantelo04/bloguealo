@@ -37,7 +37,7 @@ export const BlogHighlight = ({
         <h1 className="text-4xl font-bold text-center max-w-[calc(var(--spacing-content-width)-64px)]">
           {title}
         </h1>
-        <p className="text-lg text-center max-w-[500px]">{description}</p>
+        <p className="text-lg text-center max-w-[800px]">{description}</p>
         {author && <Author author={author} date={date} />}
         {link && (
           <CustomLink href={link}>

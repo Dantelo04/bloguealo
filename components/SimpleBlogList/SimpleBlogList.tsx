@@ -9,7 +9,7 @@ interface SimpleBlogListProps {
 export const SimpleBlogList = ({ blogs }: SimpleBlogListProps) => {
   return (
     <div className="flex flex-col gap-theme-sm">
-      <h4 className="text-start">Ultimos Blogs</h4>
+      <h4>Ultimos Blogs</h4>
       <div className="flex flex-col gap-theme-sm">
         {blogs.map((blog, index) => (
           <SimpleBlogPreview
