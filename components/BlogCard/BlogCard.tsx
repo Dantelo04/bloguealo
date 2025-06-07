@@ -44,7 +44,8 @@ export const BlogCard = ({
         </div>
       </div>
 
-      <div className="flex justify-between items-center px-theme-md pb-theme-md">
+      <div className="flex flex-col gap-theme-sm">
+      <div className="flex justify-between items-center px-theme-md">
         <p className="text-sm text-gray-100">Hecho por {blog.author_name}</p>
         <QueryClientProvider client={queryClient}>
           <LikeButton
@@ -61,7 +62,8 @@ export const BlogCard = ({
           onClick={() => (window.location.href = `/blog/${blog._id}`)}
         >
           <span>Leer más</span>
-        </Button>
+          </Button>
+        </div>
       </div>
     </div>
   );
