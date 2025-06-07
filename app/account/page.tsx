@@ -81,7 +81,7 @@ export default function Account() {
       {isBlogsPending ? (
         <Loader />
       ) : (
-        <BlogGallery title="Mis publicaciones" blogs={blogs} />
+        <BlogGallery title="Mis publicaciones" blogs={blogs}/>
       )}
     </Content>
   );

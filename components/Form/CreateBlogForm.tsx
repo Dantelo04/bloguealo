@@ -139,6 +139,7 @@ export const CreateBlogForm = () => {
           <Button type="submit" disabled={loading}>
             {loading ? "Creando..." : "Crear publicación"}
           </Button>
+          {error && <Error error={error} />}
         </div>
         <div className="flex flex-col gap-theme-md w-full">
           <TextArea
@@ -150,8 +151,8 @@ export const CreateBlogForm = () => {
             required
           />
         </div>
+        
       </form>
-      {error && <Error error={error} />}
       <BlogPreview
         title={data.title}
         description={data.description}

@@ -42,7 +42,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
 
     if (includeBlogs) {
       const userBlogs = await Blog.find({ author_id: new ObjectId(id) })
-        .select("title description image tags createdAt updatedAt author_name likes _id content")
+        .select("title description image tags createdAt updatedAt author_name likes _id content author_id _id")
         .sort({ createdAt: -1 })
         .exec();
 
