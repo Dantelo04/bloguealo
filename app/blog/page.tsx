@@ -9,11 +9,12 @@ import { BLOG_TAGS } from '../../assets/constants'
 import { useQuery } from '@tanstack/react-query'
 import { getAllBlogs } from '@/lib/actions/getAllBlogs'
 import { Loader } from '@/components/Loader/Loader'
+import { CONTENT_MIN_HEIGHT } from '@/assets/constants'
 
 export default function Blog() {
   const [search, setSearch] = useState('')
   const [selectedTag, setSelectedTag] = useState<string[] | null>(null)
-  const { data, isPending } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['blogs'],
     queryFn: () => getAllBlogs()
   })
@@ -27,7 +28,7 @@ export default function Blog() {
   }
 
   return (
-    <Content minHeight='min-h-screen' gap='gap-1'>
+    <Content minHeight={CONTENT_MIN_HEIGHT} gap='gap-1'>
       <div className='flex flex-col gap-theme-sm w-full max-w-[var(--spacing-content-width)]'>
         <SearchInput value={search} onChange={(e) => setSearch(e.target.value)}/>
         <div className='flex flex-wrap gap-2'>
@@ -36,7 +37,7 @@ export default function Blog() {
             ))}
         </div>
       </div>
-      {isPending ? <Loader /> : <BlogGallery title='' blogs={data}/>}
+      {isLoading ? <Loader /> : <BlogGallery title='' blogs={data}/>}
     </Content>
   )
 }

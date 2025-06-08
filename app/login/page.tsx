@@ -4,6 +4,7 @@ import { Content } from "@/components/Content/Content";
 import { LoginForm } from "@/components/Form/LoginForm";
 import { Loader } from "@/components/Loader/Loader";
 import { authClient } from "@/lib/auth-client";
+import { CONTENT_MIN_HEIGHT } from "@/assets/constants";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
@@ -16,7 +17,7 @@ export default function Login() {
   }
 
   return (
-    <Content minHeight="min-h-screen" gap="lg:gap-theme-lg gap-theme-md">
+    <Content minHeight={CONTENT_MIN_HEIGHT} gap="lg:gap-theme-lg gap-theme-md">
       {isPending ? (
         <Loader />
       ) : (

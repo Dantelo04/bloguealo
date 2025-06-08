@@ -10,12 +10,13 @@ import { TitleSection } from "@/components/TitleSection/TitleSection";
 import { useQuery } from "@tanstack/react-query";
 import { Loader } from "@/components/Loader/Loader";
 import { getUserBlogs } from "@/lib/actions/getUserBlogs";
+import { CONTENT_MIN_HEIGHT } from "@/assets/constants";
 
 export default function Account() {
   const { data: session } = authClient.useSession();
   const {
     data: blogs,
-    isPending: isBlogsPending,
+    isLoading: isBlogsPending,
   } = useQuery({
     queryKey: ["blogs", session?.user?.id],
     queryFn: () => getUserBlogs(session?.user?.id || ""),
@@ -34,7 +35,7 @@ export default function Account() {
   };
 
   return (
-    <Content minHeight="min-h-screen" gap="lg:gap-theme-lg gap-theme-md">
+    <Content minHeight={CONTENT_MIN_HEIGHT} gap="lg:gap-theme-lg gap-theme-md">
       <TitleSection title="Mi cuenta" />
       <div className="flex flex-col gap-theme-lg items-center w-full max-w-[var(--spacing-content-width)] p-theme-lg border rounded-md">
         <div className="flex flex-col items-center gap-theme-md">

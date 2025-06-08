@@ -218,3 +218,5 @@ export const PLACEHOLDER_BLOG = `<div>
     </ul>
 </div>
 `;
+
+export const CONTENT_MIN_HEIGHT = "lg:min-h-screen";

@@ -8,7 +8,6 @@ import { LikeButton } from "../Button/LikeButton";
 import { Blog } from "@/lib/models/Blog";
 import { DeleteButton } from "../DeleteButton/DeleteButton";
 import { authClient } from "@/lib/auth-client";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 interface BlogCardProps {
   blog: Blog;
@@ -20,7 +19,6 @@ export const BlogCard = ({
   editable = false,
 }: BlogCardProps) => {
   const { data: session } = authClient.useSession();
-  const queryClient = new QueryClient();
 
   return (
     <div className="flex flex-col justify-between overflow-hidden rounded-md border w-full pb-theme-md">
@@ -47,13 +45,11 @@ export const BlogCard = ({
       <div className="flex flex-col gap-theme-md">
       <div className="flex justify-between items-center px-theme-md">
         <p className="text-sm text-gray-100">Hecho por {blog.author_name}</p>
-        <QueryClientProvider client={queryClient}>
           <LikeButton
             liked={blog.likes.includes(session?.user?.id || "")}
             likes={blog.likes.length}
             blogId={blog._id}
           />
-        </QueryClientProvider>
       </div>
 
       <div className="w-full flex items-center justify-between px-theme-md">

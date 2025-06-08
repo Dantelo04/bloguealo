@@ -23,22 +23,22 @@ export const BlogAside = ({
   date,
   blogId,
 }: BlogAsideProps) => {
-  const { isPending, data } = useQuery({
+  const { isLoading, data } = useQuery({
     queryKey: ["user", author],
     queryFn: () => getUserById(author || ""),
     enabled: !!author,
   });
 
-  const { isPending: isBlogsPending, data: blogs } = useQuery({
+  const { isLoading: isBlogsPending, data: blogs } = useQuery({
     queryKey: ["blogs"],
     queryFn: () => getAllBlogsWithLimit(3),
   });
 
   return (
-    <div className="flex flex-col gap-theme-md w-full lg:w-[25%] sticky top-[94px] h-fit">
+    <div className="flex flex-col gap-theme-md w-full lg:w-[25%] lg:sticky lg:top-[94px] h-fit">
       <hr className="lg:hidden border-black" />
       <div className="inline-flex justify-between items-center">
-        {!isPending && data && (
+        {!isLoading && data && (
           <Author author={data} background={false} date={date} />
         )}
         <LikeButton

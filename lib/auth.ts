@@ -8,35 +8,40 @@ await connectDB();
 if (!db) throw new Error("Database connection not established");
 
 export const auth = betterAuth({
-    database: mongodbAdapter(db.getClient().db()),
-    emailAndPassword: {
-        enabled: true,
+  database: mongodbAdapter(db.getClient().db()),
+  emailAndPassword: {
+    enabled: true,
+  },
+  user: {
+    additionalFields: {
+      phone: {
+        type: "string",
+        required: false,
+        defaultValue: null,
+        input: true,
+      },
+      role: {
+        type: "string",
+        required: false,
+        defaultValue: DEFAULT_ROLE,
+        input: true,
+      },
+      avatar: {
+        type: "string",
+        required: false,
+        defaultValue: null,
+        input: true,
+      },
     },
-    user: {
-        additionalFields: {
-            phone: {
-                type: "string",
-                required: false,
-                defaultValue: null,
-                input: true,
-            },
-            role: {
-                type: "string",
-                required: false,
-                defaultValue: DEFAULT_ROLE,
-                input: true,
-            },
-            avatar: {
-                type: "string",
-                required: false,
-                defaultValue: null,
-                input: true,
-            },
-        },
+  },
+  trustedOrigins: [
+    process.env.NEXT_PUBLIC_BETTER_AUTH_URL || "",
+    "http://localhost:3000",
+  ],
+  session: {
+    cookieCache: {
+      enabled: true,
+      maxAge: 5 * 60,
     },
-    trustedOrigins: [
-        process.env.NEXT_PUBLIC_BETTER_AUTH_URL || "",
-        "http://localhost:3000",
-    ]
+  },
 });
-
