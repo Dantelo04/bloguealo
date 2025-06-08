@@ -11,11 +11,13 @@ import { getUserById } from "@/lib/actions/getUserById";
 interface BlogHighlightProps {
   blog: Blog | null | undefined;
   rounded?: boolean;
+  readonly?: boolean;
 }
 
 export const BlogHighlight = async ({
   blog,
   rounded = false,
+  readonly = false,
 }: BlogHighlightProps) => {
   const author = await getUserById(blog?.author_id || "");
 
@@ -33,8 +35,8 @@ export const BlogHighlight = async ({
           {blog?.title}
         </h1>
         <p className="text-lg text-center max-w-[800px]">{blog?.description}</p>
-        {blog?.author_id && <Author author={author} date={new Date(blog.createdAt).toISOString()} />}
-        {blog?._id && (
+        {blog?.author_id && !readonly && <Author author={author} date={new Date(blog.createdAt).toISOString()} />}
+        {blog?._id && !readonly && (
           <CustomLink href={`/blog/${blog?._id}`}>
             <span>Leer más</span>
             <CgArrowRight className="w-4 h-4" />
