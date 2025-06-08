@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Blog } from "@/lib/models/Blog";
 import { DateFormat } from "@/assets/constants";

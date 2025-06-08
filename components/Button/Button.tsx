@@ -4,20 +4,20 @@ import React from "react";
 
 interface ButtonProps {
   children: React.ReactNode;
-  onClick?: () => void;
   className?: string;
   variant?: "primary" | "secondary" | "tertiary";
   type?: "button" | "submit" | "reset";
   disabled?: boolean;
+  onClick?: () => void;
 }
 
 export const Button = ({
   children,
-  onClick,
   className = "px-4 py-2 rounded-md",
   variant = "primary",
   type = "button",
   disabled = false,
+  onClick,
 }: ButtonProps) => {
   const variantStyle =
     variant === "primary"

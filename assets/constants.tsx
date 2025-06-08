@@ -220,3 +220,8 @@ export const PLACEHOLDER_BLOG = `<div>
 `;
 
 export const CONTENT_MIN_HEIGHT = "lg:min-h-screen";
+
+export const OBJECT_OPTIONS = {
+  flattenObjectIds: true,
+  flattenMaps: true,
+};

@@ -1,9 +1,23 @@
-import axios from "axios";
+import { getNativeUserById } from "../services/getNativeUser";
+import { connectDB } from "../config/db";
+import { User } from "better-auth/types";
 
-export const getUserById = async (id: string) => {
+
+export const getUserById = async (id: string | null): Promise<User | null> => {
   try {
-    const { data } = await axios.get(`/api/user/${id}`);
-    return data.user;
+    await connectDB;
+
+    if(!id) {
+      return null;
+    }
+
+    const user = await getNativeUserById(id);
+
+    if (!user) {
+      return null;
+    }
+
+    return user as unknown as User;
   } catch (err) {
     console.error("Error fetching user:", err);
     return null;

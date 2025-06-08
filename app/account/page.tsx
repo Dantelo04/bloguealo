@@ -1,38 +1,20 @@
-"use client";
-
 import { Content } from "@/components/Content/Content";
-import { authClient } from "@/lib/auth-client";
-import { Button } from "@/components/Button/Button";
 import Image from "next/image";
 import { FaUser } from "react-icons/fa";
 import { BlogGallery } from "@/components/BlogGallery/BlogGallery";
 import { TitleSection } from "@/components/TitleSection/TitleSection";
-import { useQuery } from "@tanstack/react-query";
-import { Loader } from "@/components/Loader/Loader";
 import { getUserBlogs } from "@/lib/actions/getUserBlogs";
 import { CONTENT_MIN_HEIGHT } from "@/assets/constants";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+import { CustomLink } from "@/components/CustomLink/CustomLink";
 
-export default function Account() {
-  const { data: session } = authClient.useSession();
-  const {
-    data: blogs,
-    isLoading: isBlogsPending,
-  } = useQuery({
-    queryKey: ["blogs", session?.user?.id],
-    queryFn: () => getUserBlogs(session?.user?.id || ""),
-    enabled: !!session?.user?.id,
-    initialData: [],
+export default async function Account() {
+  const session = await auth.api.getSession({
+    headers: await headers(),
   });
 
-  const handleSignOut = async () => {
-    await authClient.signOut({
-      fetchOptions: {
-        onSuccess: () => {
-          window.location.href = "/login";
-        },
-      },
-    });
-  };
+  const blogs = await getUserBlogs(session?.user?.id || "");
 
   return (
     <Content minHeight={CONTENT_MIN_HEIGHT} gap="lg:gap-theme-lg gap-theme-md">
@@ -74,15 +56,11 @@ export default function Account() {
           </div>
         </div>
 
-        <Button onClick={handleSignOut} variant="primary">
+        <CustomLink href="/logout">
           Cerrar sesión
-        </Button>
+        </CustomLink>
       </div>
-      {isBlogsPending ? (
-        <Loader />
-      ) : (
-        <BlogGallery title="Mis publicaciones" blogs={blogs} editable={true}/>
-      )}
+      <BlogGallery title="Mis publicaciones" blogs={blogs || []} editable={true}/>
     </Content>
   );
 }

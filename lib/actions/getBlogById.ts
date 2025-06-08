@@ -1,9 +1,20 @@
-import axios from "axios";
+"use server";
+
+import { Blog } from "../models/Blog";
+import { connectDB } from "../config/db";
+import { OBJECT_OPTIONS } from "@/assets/constants";
 
 export const getBlogById = async (id: string) => {
   try {
-    const { data } = await axios.get(`/api/blog/${id}`);
-    return data;
+    await connectDB();
+
+    const blog = await Blog.findById(id);
+
+    if (!blog) {
+      return null;
+    }
+
+    return blog.toObject(OBJECT_OPTIONS);
   } catch (err) {
     console.error("Error fetching blog:", err);
     return null;
