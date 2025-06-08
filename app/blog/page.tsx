@@ -11,8 +11,6 @@ import { Loader } from '@/components/Loader/Loader'
 import { CONTENT_MIN_HEIGHT } from '@/assets/constants'
 import { Blog } from '@/lib/models/Blog'
 
-export const revalidate = 0;
-
 export default function BlogPage() {
   const [search, setSearch] = useState('')
   const [selectedTag, setSelectedTag] = useState<string[] | null>(null)
