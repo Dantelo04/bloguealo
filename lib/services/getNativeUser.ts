@@ -1,3 +1,5 @@
+"use server";
+
 import { db } from "@/lib/config/db";
 import { ObjectId } from "mongodb";
 

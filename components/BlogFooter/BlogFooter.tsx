@@ -4,26 +4,25 @@ import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa'
 import { LikeButton } from '../Button/LikeButton'
 
 interface BlogFooterProps {
-    likes: number;
-    liked: boolean;
+    likes: string[];
     blogId: string;
 }
 
-export const BlogFooter = ({ likes, liked, blogId }: BlogFooterProps) => {
+export const BlogFooter = ({ likes, blogId }: BlogFooterProps) => {
   return (
     <div className='lg:inline-flex hidden justify-between items-center w-full max-w-[var(--spacing-content-width)] py-theme-sm border-t border-black'>
         <div className='flex gap-theme-sm'>
-            <SocialMediaButton onClick={() => {}}>
+            <SocialMediaButton link='https://www.facebook.com'>
                 <FaFacebook />
             </SocialMediaButton>
-            <SocialMediaButton onClick={() => {}}>
+            <SocialMediaButton link='https://www.twitter.com'>
                 <FaTwitter />
             </SocialMediaButton>
-            <SocialMediaButton onClick={() => {}}>
+            <SocialMediaButton link='https://www.instagram.com'>
                 <FaInstagram />
             </SocialMediaButton>
         </div>
-        <LikeButton liked={liked} likes={likes} blogId={blogId}/>
+        <LikeButton likes={likes} blogId={blogId}/>
     </div>
   )
 }

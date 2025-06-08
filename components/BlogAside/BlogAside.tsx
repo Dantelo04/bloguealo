@@ -5,60 +5,48 @@ import { LikeButton } from "../Button/LikeButton";
 import { Author } from "../BlogHighlight/Author";
 import { SimpleBlogList } from "../SimpleBlogList/SimpleBlogList";
 import { getUserById } from "@/lib/actions/getUserById";
-import { useQuery } from "@tanstack/react-query";
-import { getAllBlogsWithLimit } from "@/lib/actions/getAllBlogsWithLimit";
+import { getAllBlogs } from "@/lib/actions/getAllBlogs";
 
 interface BlogAsideProps {
   author?: string | null;
   date?: string;
   blogId: string | null;
-  likes: number;
-  liked: boolean;
+  likes: string[];
+  demo?: boolean;
 }
 
-export const BlogAside = ({
+export const BlogAside = async ({
   likes,
-  liked,
   author,
   date,
   blogId,
 }: BlogAsideProps) => {
-  const { isLoading, data } = useQuery({
-    queryKey: ["user", author],
-    queryFn: () => getUserById(author || ""),
-    enabled: !!author,
-  });
+  const data = await getUserById(author || null);
 
-  const { isLoading: isBlogsPending, data: blogs } = useQuery({
-    queryKey: ["blogs"],
-    queryFn: () => getAllBlogsWithLimit(3),
-  });
+  const blogs = await getAllBlogs({ limit: 3 });
 
   return (
     <div className="flex flex-col gap-theme-md w-full lg:w-[25%] lg:sticky lg:top-[94px] h-fit">
       <hr className="lg:hidden border-black" />
       <div className="inline-flex justify-between items-center">
-        {!isLoading && data && (
-          <Author author={data} background={false} date={date} />
-        )}
+        {data && <Author author={data} background={false} date={date} />}
         <LikeButton
-          liked={liked}
           likes={likes}
           blogId={blogId}
         />
       </div>
       <hr className="border-black" />
-      {!isBlogsPending && blogs && <SimpleBlogList blogs={blogs} />}
+      {blogs && <SimpleBlogList blogs={blogs} />}
       <hr className="border-black" />
       <h4 className="lg:flex hidden">Compartir</h4>
       <div className="flex gap-theme-sm">
-        <SocialMediaButton onClick={() => {}}>
+        <SocialMediaButton>
           <FaFacebook />
         </SocialMediaButton>
-        <SocialMediaButton onClick={() => {}}>
+        <SocialMediaButton>
           <FaTwitter />
         </SocialMediaButton>
-        <SocialMediaButton onClick={() => {}}>
+        <SocialMediaButton>
           <FaInstagram />
         </SocialMediaButton>
       </div>

@@ -1,14 +1,15 @@
+import Link from 'next/link';
 import React from 'react'
 
 interface SocialMediaButtonProps {
     children: React.ReactNode;
-    onClick: () => void;
+    link?: string;
 }
 
-export const SocialMediaButton = ({ children, onClick }: SocialMediaButtonProps) => {
+export const SocialMediaButton = ({ children, link }: SocialMediaButtonProps) => {
   return (
-    <button className='rounded-full p-2 border border-black cursor-pointer' onClick={onClick}>
+    <Link className='rounded-full p-2 border border-black cursor-pointer' href={link || ""}>
         {children}
-    </button>
+    </Link>
   )
 }

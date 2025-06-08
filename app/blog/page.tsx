@@ -2,22 +2,30 @@
 
 import { Content } from '@/components/Content/Content'
 import { BlogGallery } from '@/components/BlogGallery/BlogGallery'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { SearchInput } from '@/components/SearchInput/SearchInput'
 import { Tag } from '@/components/BlogCard/Tag'
 import { BLOG_TAGS } from '../../assets/constants'
-import { useQuery } from '@tanstack/react-query'
 import { getAllBlogs } from '@/lib/actions/getAllBlogs'
 import { Loader } from '@/components/Loader/Loader'
 import { CONTENT_MIN_HEIGHT } from '@/assets/constants'
+import { Blog } from '@/lib/models/Blog'
 
-export default function Blog() {
+export default function BlogPage() {
   const [search, setSearch] = useState('')
   const [selectedTag, setSelectedTag] = useState<string[] | null>(null)
-  const { data, isLoading } = useQuery({
-    queryKey: ['blogs'],
-    queryFn: () => getAllBlogs()
-  })
+  const [data, setData] = useState<Blog[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      setIsLoading(true)
+      const blogs = await getAllBlogs()
+      setData(blogs)
+      setIsLoading(false)
+    }
+    fetchBlogs()
+  }, [])
 
   const handleTagClick = (tag: string) => {
     if (selectedTag?.includes(tag)) {

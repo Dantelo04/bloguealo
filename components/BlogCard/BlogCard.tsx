@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import Image from "next/image";
 import { Tag } from "./Tag";
@@ -7,7 +5,6 @@ import { Button } from "../Button/Button";
 import { LikeButton } from "../Button/LikeButton";
 import { Blog } from "@/lib/models/Blog";
 import { DeleteButton } from "../DeleteButton/DeleteButton";
-import { authClient } from "@/lib/auth-client";
 
 interface BlogCardProps {
   blog: Blog;
@@ -18,8 +15,6 @@ export const BlogCard = ({
   blog,
   editable = false,
 }: BlogCardProps) => {
-  const { data: session } = authClient.useSession();
-
   return (
     <div className="flex flex-col justify-between overflow-hidden rounded-md border w-full pb-theme-md">
       <div className="flex flex-col relative">
@@ -46,8 +41,7 @@ export const BlogCard = ({
       <div className="flex justify-between items-center px-theme-md">
         <p className="text-sm text-gray-100">Hecho por {blog.author_name}</p>
           <LikeButton
-            liked={blog.likes.includes(session?.user?.id || "")}
-            likes={blog.likes.length}
+            likes={blog.likes}
             blogId={blog._id}
           />
       </div>
