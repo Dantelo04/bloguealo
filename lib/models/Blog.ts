@@ -53,6 +53,9 @@ const blogSchema = new Schema<Blog>(
   { timestamps: true }
 );
 
+// Add index on createdAt field for faster sorting
+blogSchema.index({ createdAt: -1 });
+
 if (mongoose.models.Blog) {
   delete mongoose.models.Blog;
 }
