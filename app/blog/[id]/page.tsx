@@ -6,6 +6,7 @@ import { BlogAside } from "@/components/BlogAside/BlogAside";
 import { BlogContent } from "@/components/BlogContent/BlogContent";
 import { getBlogById } from "@/lib/actions/getBlogById";
 import { CONTENT_MIN_HEIGHT } from "@/assets/constants";
+import { notFound } from "next/navigation";
 
 export default async function BlogPost({
   params,
@@ -16,10 +17,14 @@ export default async function BlogPost({
 
   const blog = await getBlogById(id);
 
+  if (!blog) {
+    return notFound();
+  }
+
   return (
     <>
       <div className="w-full flex justify-center lg:pt-theme-sm">
-        {blog && <BlogHighlight blog={blog} />}
+        {blog && <BlogHighlight blog={blog} readonly />}
       </div>
       <Content
         minHeight={CONTENT_MIN_HEIGHT}
