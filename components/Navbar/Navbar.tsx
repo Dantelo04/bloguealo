@@ -17,13 +17,13 @@ export const Navbar = () => {
 
   return (
     <nav
-      className={`w-full flex justify-center border-b backdrop-blur-md bg-white/75 sticky top-0 z-10 overflow-x-clip ${
+      className={`w-full flex justify-center sticky top-0 z-10 overflow-x-clip lg:pt-2 ${
         isMenuOpen ? "overflow-x-visible" : "overflow-x-clip"
       }`}
     >
-      <div className="flex justify-between items-center py-4 px-[16px] max-w-[calc(var(--spacing-content-width)+32px)] w-full">
+      <div className="flex justify-between items-center py-4 px-[16px] max-w-[calc(var(--spacing-content-width)+32px)] backdrop-blur-sm lg:border border-b border-border lg:rounded-2xl inner-shadow bg-white/75 w-full">
         <Logo />
-        <div className="lg:flex hidden gap-theme-xl items-center">
+        <div className="lg:flex hidden gap-theme-xl items-center uppercase text-sm font-bold">
           {NAV_ITEMS.map((item) => (
             <Link key={item.href} href={item.href}>
               {item.label}
@@ -40,7 +40,7 @@ export const Navbar = () => {
           ) : isPending ? (
             <div></div>
           ) : (
-            <Link href="/login">Ingresar</Link>
+            <Link href="/login" className="uppercase text-sm font-bold">Ingresar</Link>
           )}
           <Button
             onClick={() => {
@@ -59,7 +59,7 @@ export const Navbar = () => {
         </div>
         <div className="lg:hidden flex gap-theme-sm items-center">
           {!session && !isPending && (
-            <Link href="/login" className="text-xl">
+            <Link href="/login" className="uppercase text-sm font-bold">
               Ingresar
             </Link>
           )}
@@ -89,7 +89,7 @@ export const Navbar = () => {
             <Logo />
             <div className="lg:hidden flex gap-theme-sm items-center">
               {!session && !isPending && (
-                <Link href="/login" className="text-xl">
+                <Link href="/login" className="uppercase text-sm font-bold">
                   Ingresar
                 </Link>
               )}

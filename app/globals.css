@@ -6,7 +6,7 @@
   --tertiary: #000000;
   --gray-100: rgba(0, 0, 0, 0.5);
   --gray-50: rgba(0, 0, 0, 0.25);
-  --gray-25: rgba(0, 0, 0, 0.125);
+  --gray-25: rgba(0, 0, 0, 0.15);
   --success: #00FF00;
   --error: #FF0000;
   --warning: #FFFF00;
@@ -22,6 +22,7 @@
   --gap-xl: 48px;
   --horizontal-padding: 16px;
   --primary-fade: #e7e6ed;
+  --border: var(--tw-border-style);
 }
 
 @theme {
@@ -38,6 +39,7 @@
   --color-light: var(--light);
   --color-dark: var(--dark);
   --color-background: var(--background);
+  --color-border: var(--gray-25);
   --spacing-content-width: var(--content-width);
   --spacing-theme-sm: var(--gap-sm);
   --spacing-theme-md: var(--gap-md);
@@ -79,4 +81,8 @@ h5 {
 
 section {
   @apply flex flex-col gap-2;
+}
+
+.inner-shadow {
+  box-shadow: inset 0px 0px 10px 2px rgba(255, 255, 255, 0.8);
 }

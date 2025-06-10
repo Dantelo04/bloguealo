@@ -19,7 +19,7 @@ export const TitleSection = ({ title, link }: TitleSectionProps) => {
           </CustomLink>
         )}
       </div>
-      <hr className='w-full border-t border-black'/>
+      <hr className='w-full border-t border-border'/>
     </div>
   );
 };

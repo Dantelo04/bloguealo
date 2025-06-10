@@ -10,8 +10,8 @@ interface SearchInputProps {
 export const SearchInput = ({ placeholder = 'Buscar', onChange, value }: SearchInputProps) => {
   return (
     <div className='inline-flex items-center relative w-full'>
-        <input type="text" placeholder={placeholder} className='w-full rounded-md border border-black p-2 outline-primary' onChange={onChange} value={value}/>
-        <FaSearch className='absolute right-7 top-1/2 -translate-y-1/2 text-black' />
+        <input type="text" placeholder={placeholder} className='w-full rounded-md border border-border p-2 outline-primary' onChange={onChange} value={value}/>
+        <FaSearch className='absolute right-3 top-1/2 -translate-y-1/2 text-black' />
     </div>
   )
 }

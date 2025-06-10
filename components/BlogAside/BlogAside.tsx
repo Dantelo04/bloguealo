@@ -27,7 +27,7 @@ export const BlogAside = async ({
 
   return (
     <div className="flex flex-col gap-theme-md w-full lg:w-[25%] lg:sticky lg:top-[94px] h-fit">
-      <hr className="lg:hidden border-black" />
+      <hr className="lg:hidden border-border mt-theme-lg" />
       <div className="inline-flex justify-between items-center">
         {data && <Author author={data} background={false} date={date} />}
         <LikeButton
@@ -35,9 +35,9 @@ export const BlogAside = async ({
           blogId={blogId}
         />
       </div>
-      <hr className="border-black" />
+      <hr className="border-border" />
       {blogs && <SimpleBlogList blogs={blogs} />}
-      <hr className="border-black" />
+      <hr className="border-border" />
       <h4 className="lg:flex hidden">Compartir</h4>
       <div className="flex gap-theme-sm">
         <SocialMediaButton>
