@@ -17,7 +17,7 @@ export default function Register() {
 
   return (
     <Content minHeight={CONTENT_MIN_HEIGHT} gap="lg:gap-theme-lg gap-theme-md">
-      <div className="flex flex-col gap-theme-md items-center w-full max-w-[calc(var(--spacing-content-width)/2.5)] p-theme-lg border rounded-md pb-theme-xl">
+      <div className="flex flex-col gap-theme-md items-center w-full max-w-[calc(var(--spacing-content-width)/2.5)] lg:p-theme-lg p-theme-md lg:border rounded-md lg:py-theme-xl">
         <RegisterForm />
         <p>
           ¿Ya tienes una cuenta? <Link href="/login">Inicia sesión</Link>

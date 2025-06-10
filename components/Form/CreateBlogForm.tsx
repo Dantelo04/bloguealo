@@ -79,7 +79,6 @@ export const CreateBlogForm = () => {
       });
       setTags([]);
       setError(null);
-
       router.push("/");
       router.refresh();
     } catch (err) {

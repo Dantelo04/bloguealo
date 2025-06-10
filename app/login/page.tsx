@@ -21,7 +21,7 @@ export default function Login() {
       {isPending ? (
         <Loader />
       ) : (
-        <div className="flex flex-col gap-theme-md items-center w-full max-w-[calc(var(--spacing-content-width)/2.5)] p-theme-lg border rounded-md pb-theme-xl">
+        <div className="flex flex-col gap-theme-md items-center w-full max-w-[calc(var(--spacing-content-width)/2.5)] lg:p-theme-lg p-theme-md lg:border rounded-md lg:py-theme-xl">
           <LoginForm />
           <p>
             ¿No tienes una cuenta? <Link href="/register">Regístrate</Link>

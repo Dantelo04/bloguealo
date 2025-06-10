@@ -54,7 +54,11 @@ body {
 }
 
 a {
-  @apply hover:underline;
+  @apply hover:underline active:text-primary/10 transition-all duration-200;
+}
+
+.error-title {
+  @apply text-8xl font-bold text-center w-fit;
 }
 
 h2 {

@@ -66,8 +66,8 @@ export const Navbar = () => {
           {session && !isPending && !error && (
             <AccountButton
               avatarImage={session.user?.avatar}
-              width={36}
-              height={36}
+              width={47}
+              height={47}
             />
           )}
           <Button
@@ -96,8 +96,8 @@ export const Navbar = () => {
               {session && !isPending && !error && (
                 <AccountButton
                   avatarImage={session.user?.avatar}
-                  width={36}
-                  height={36}
+                  width={47}
+                  height={47}
                   onClick={() => setIsMenuOpen(false)}
                 />
               )}

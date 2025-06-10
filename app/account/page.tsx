@@ -7,7 +7,7 @@ import { getUserBlogs } from "@/lib/actions/getUserBlogs";
 import { CONTENT_MIN_HEIGHT } from "@/assets/constants";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
-import { CustomLink } from "@/components/CustomLink/CustomLink";
+import { LogoutButton } from "@/components/Button/LogoutButton";
 
 export default async function Account() {
   const session = await auth.api.getSession({
@@ -19,7 +19,7 @@ export default async function Account() {
   return (
     <Content minHeight={CONTENT_MIN_HEIGHT} gap="lg:gap-theme-lg gap-theme-md">
       <TitleSection title="Mi cuenta" />
-      <div className="flex flex-col gap-theme-lg items-center w-full max-w-[var(--spacing-content-width)] p-theme-lg border rounded-md">
+      <div className="flex flex-col gap-theme-lg lg:items-center w-full max-w-[var(--spacing-content-width)] lg:p-theme-lg lg:border rounded-md">
         <div className="flex flex-col items-center gap-theme-md">
           <div className="relative w-32 h-32">
             {session?.user?.avatar ? (
@@ -56,9 +56,7 @@ export default async function Account() {
           </div>
         </div>
 
-        <CustomLink href="/logout">
-          Cerrar sesión
-        </CustomLink>
+        <LogoutButton />
       </div>
       <BlogGallery title="Mis publicaciones" blogs={blogs || []} editable={true}/>
     </Content>
