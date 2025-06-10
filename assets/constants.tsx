@@ -219,7 +219,7 @@ export const PLACEHOLDER_BLOG = `<div>
 </div>
 `;
 
-export const CONTENT_MIN_HEIGHT = "lg:min-h-screen";
+export const CONTENT_MIN_HEIGHT = "lg:min-h-[calc(100vh-150px)] min-h-[calc(100vh-250px)]";
 
 export const OBJECT_OPTIONS = {
   flattenObjectIds: true,

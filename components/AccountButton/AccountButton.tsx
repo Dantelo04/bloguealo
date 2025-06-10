@@ -17,7 +17,7 @@ export const AccountButton = ({
   onClick,
 }: AccountButtonProps) => {
   return (
-    <Link href="/account" onClick={onClick}>
+    <Link href="/account" onClick={onClick} className="active:scale-90 transition-all duration-100">
       {avatarImage ? (
         <Image
           src={avatarImage}

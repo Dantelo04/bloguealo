@@ -37,6 +37,7 @@ export const auth = betterAuth({
   trustedOrigins: [
     process.env.NEXT_PUBLIC_BETTER_AUTH_URL || "",
     "http://localhost:3000",
+    "http://192.168.100.42:3000",
   ],
   session: {
     cookieCache: {
