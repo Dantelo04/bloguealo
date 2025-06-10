@@ -110,7 +110,7 @@ export const Navbar = () => {
               </Button>
             </div>
           </div>
-          <div className="flex flex-col gap-theme-lg text-xl">
+          <div className="flex flex-col gap-theme-lg text-lg uppercase font-bold">
             {NAV_ITEMS.map((item) => (
               <Link key={item.href} href={item.href} onClick={() => setIsMenuOpen(false)}>
                 {item.label}
