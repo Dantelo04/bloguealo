@@ -8,6 +8,8 @@ import { getBlogById } from "@/lib/actions/getBlogById";
 import { CONTENT_MIN_HEIGHT } from "@/assets/constants";
 import { notFound } from "next/navigation";
 
+export const revalidate = 60;
+
 export default async function BlogPost({
   params,
 }: {

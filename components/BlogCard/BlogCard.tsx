@@ -16,14 +16,14 @@ export const BlogCard = ({
   editable = false,
 }: BlogCardProps) => {
   return (
-    <div className="flex flex-col justify-between overflow-hidden rounded-md border w-full pb-theme-md">
+    <div className="flex flex-col justify-between overflow-hidden rounded-md border border-border w-full pb-theme-md">
       <div className="flex flex-col relative">
         <Image
           src={blog.image || ""}
           alt={blog.title}
           width={300}
           height={300}
-          className="object-cover w-full h-[180px] border-b border-black"
+          className="object-cover w-full h-[180px] border-b border-border"
         />
         {editable && <DeleteButton blog_id={blog._id}/>}
         <div className="flex flex-col gap-2 p-theme-md">

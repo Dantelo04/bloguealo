@@ -34,7 +34,7 @@ export const Button = ({
 
   return (
     <button
-      className={`${className} ${variantStyle} ${disabled ? "opacity-50 cursor-not-allowed" : ""} cursor-pointer hover:bg-opacity-75 transition-all duration-100 active:scale-95 active:bg-opacity-75`}
+      className={`${className} ${variantStyle} ${disabled ? "opacity-50 cursor-not-allowed" : ""} cursor-pointer hover:bg-opacity-75 transition-all duration-100 active:scale-95 active:bg-opacity-75 uppercase lg:text-sm font-bold`}
       onClick={onClick && !href ? onClick : href ? () => window.location.href = href : undefined}
       type={type}
       disabled={disabled}
