@@ -17,17 +17,17 @@ export const Navbar = () => {
 
   return (
     <nav
-      className={`w-full flex justify-center sticky top-0 z-10 overflow-x-clip lg:pt-2 ${
+      className={`w-full flex justify-center sticky top-0 z-10 overflow-x-clip backdrop-blur-sm border-b border-border inner-shadow bg-white/75 ${
         isMenuOpen ? "overflow-x-visible" : "overflow-x-clip"
       }`}
     >
-      <div className="flex justify-between items-center py-4 px-[16px] max-w-[calc(var(--spacing-content-width)+32px)] backdrop-blur-sm lg:border border-b border-border lg:rounded-2xl inner-shadow bg-white/75 w-full">
+      <div className="flex justify-between items-center py-4 px-[16px] max-w-[calc(var(--spacing-content-width)+164px)]  w-full">
         <Logo />
-        <div className="lg:flex hidden gap-theme-xl items-center uppercase text-sm font-bold">
-          {NAV_ITEMS.map((item) => (
-            <Link key={item.href} href={item.href}>
+        <div className="lg:flex hidden gap-theme-xl items-center uppercase text-sm font-semibold">
+          {NAV_ITEMS.map((item, index) => (
+            <a key={index} href={item.href} target={item.target}>
               {item.label}
-            </Link>
+            </a>
           ))}
         </div>
         <div className="lg:flex hidden gap-theme-sm items-center">
@@ -40,7 +40,7 @@ export const Navbar = () => {
           ) : isPending ? (
             <div></div>
           ) : (
-            <Link href="/login" className="uppercase text-sm font-bold">Ingresar</Link>
+            <Link href="/login" className="uppercase text-sm font-semibold">Ingresar</Link>
           )}
           <Button
             onClick={() => {
@@ -59,7 +59,7 @@ export const Navbar = () => {
         </div>
         <div className="lg:hidden flex gap-theme-sm items-center">
           {!session && !isPending && (
-            <Link href="/login" className="uppercase text-sm font-bold">
+            <Link href="/login" className="uppercase text-sm font-semibold">
               Ingresar
             </Link>
           )}
@@ -89,7 +89,7 @@ export const Navbar = () => {
             <Logo />
             <div className="lg:hidden flex gap-theme-sm items-center">
               {!session && !isPending && (
-                <Link href="/login" className="uppercase text-sm font-bold">
+                <Link href="/login" className="uppercase text-sm font-semibold">
                   Ingresar
                 </Link>
               )}
@@ -110,11 +110,11 @@ export const Navbar = () => {
               </Button>
             </div>
           </div>
-          <div className="flex flex-col gap-theme-lg text-lg uppercase font-bold">
-            {NAV_ITEMS.map((item) => (
-              <Link key={item.href} href={item.href} onClick={() => setIsMenuOpen(false)}>
+          <div className="flex flex-col gap-theme-lg text-lg uppercase font-semibold">
+            {NAV_ITEMS.map((item, index) => (
+              <a key={index} href={item.href} target={item.target} onClick={() => setIsMenuOpen(false)}>
                 {item.label}
-              </Link>
+              </a>
             ))}
           </div>
           <Button

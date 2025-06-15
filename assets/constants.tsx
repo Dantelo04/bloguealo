@@ -21,11 +21,13 @@ export const NAV_ITEMS = [
   },
   {
     label: "Sobre Mi",
-    href: "/about",
+    href: "https://dantelo.dev",
+    target: "_blank",
   },
   {
     label: "Contacto",
-    href: "/contact",
+    href: "https://dantelo.dev",
+    target: "_blank",
   },
 ];
 
@@ -219,7 +221,8 @@ export const PLACEHOLDER_BLOG = `<div>
 </div>
 `;
 
-export const CONTENT_MIN_HEIGHT = "lg:min-h-[calc(100vh-150px)] min-h-[calc(100vh-250px)]";
+export const CONTENT_MIN_HEIGHT =
+  "lg:min-h-[calc(100vh-150px)] min-h-[calc(100vh-250px)]";
 
 export const OBJECT_OPTIONS = {
   flattenObjectIds: true,

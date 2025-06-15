@@ -4,8 +4,18 @@ import { Blog } from "@/lib/models/Blog";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { getNativeUserById } from "@/lib/services/getNativeUser";
-import { isValidUrl } from "@/lib/services/isValidUrl";
 import { DEFAULT_BLOG_IMAGE } from "@/assets/constants";
+import { writeFile } from "fs/promises";
+
+const MAX_IMAGE_SIZE = 3 * 1024 * 1024; // 3MB in bytes
+
+function validateImageSize(base64Image: string): boolean {
+  // Remove the data URL prefix to get just the base64 string
+  const base64Data = base64Image.split(',')[1];
+  // Calculate the size of the base64 string
+  const sizeInBytes = Math.ceil((base64Data.length * 3) / 4);
+  return sizeInBytes <= MAX_IMAGE_SIZE;
+}
 
 // GET all blogs
 export async function GET(request: NextRequest) {
@@ -101,10 +111,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (image && image !== DEFAULT_BLOG_IMAGE && !isValidUrl(image)) {
-      return NextResponse.json({ error: "Formato de imagen inválido, utiliza picsum.photos o dejalo en blanco" }, { status: 400 });
-    }
-
     // Get the current user from the session
     const session = await auth.api.getSession({
       headers: await headers(),
@@ -147,6 +153,22 @@ export async function POST(request: NextRequest) {
 
     if (blogs.length < limit) {
       try {
+        let imgUrl = DEFAULT_BLOG_IMAGE;
+
+        if(image) {
+          if (!validateImageSize(image)) {
+            return NextResponse.json(
+              { error: "La imagen debe ser menor a 3MB" },
+              { status: 400 }
+            );
+          }
+          const timestamp = Date.now();
+          const buffer = Buffer.from(image.split(',')[1], 'base64');
+          const path = `./public/user-images/${timestamp}_${image.name || 'image.jpg'}`;
+          await writeFile(path, buffer);
+          imgUrl = `/user-images/${timestamp}_${image.name || 'image.jpg'}`;
+        }
+
         const blogData = {
           title,
           content,
@@ -154,7 +176,7 @@ export async function POST(request: NextRequest) {
           author_name: author?.name || "Unknown",
           description,
           tags: tags.length > tag_limit ? tags.slice(0, tag_limit) : tags,
-          image,
+          image: imgUrl,
         };
 
         const newBlog = await Blog.create(blogData);
@@ -189,6 +211,100 @@ export async function POST(request: NextRequest) {
     console.error("Error creating blog:", error);
     return NextResponse.json(
       { error: "Failed to create blog" },
+      { status: 500 }
+    );
+  }
+}
+
+// PUT update blog
+export async function PUT(request: NextRequest) {
+  try {
+    await connectDB();
+
+    const { id, title, content, description, tags, image } = await request.json();
+
+    if (!id) {
+      return NextResponse.json(
+        { error: "Blog ID is required" },
+        { status: 400 }
+      );
+    }
+
+    const session = await auth.api.getSession({
+      headers: await headers(),
+    });
+
+    if (!session?.user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const blog = await Blog.findById(id);
+    
+    if (!blog) {
+      return NextResponse.json(
+        { error: "Blog not found" },
+        { status: 404 }
+      );
+    }
+
+    const author = await getNativeUserById(session.user.id);
+    if (blog.author_id !== session.user.id && author?.role !== "admin") {
+      return NextResponse.json(
+        { error: "You are not authorized to update this blog" },
+        { status: 403 }
+      );
+    }
+
+    const updateData: {
+      title?: string,
+      content?: string,
+      description?: string,
+      tags?: string[],
+      image?: string
+    } = {};
+
+    if (title) updateData.title = title;
+    if (content) updateData.content = content;
+    if (description) updateData.description = description;
+    if (tags) {
+      const tag_limit = 3;
+      updateData.tags = tags.length > tag_limit ? tags.slice(0, tag_limit) : tags;
+    }
+
+    if (image && image.startsWith('data:image/')) {
+      if (!validateImageSize(image)) {
+        return NextResponse.json(
+          { error: "La imagen debe ser menor a 3MB" },
+          { status: 400 }
+        );
+      }
+      const timestamp = Date.now();
+      const buffer = Buffer.from(image.split(',')[1], 'base64');
+      const path = `./public/user-images/${timestamp}_${image.name || 'image.jpg'}`;
+      await writeFile(path, buffer);
+      updateData.image = `/user-images/${timestamp}_${image.name || 'image.jpg'}`;
+    }
+
+    const updatedBlog = await Blog.findByIdAndUpdate(
+      id,
+      { $set: updateData },
+      { new: true, runValidators: true }
+    );
+
+    return NextResponse.json(
+      {
+        message: "Blog updated successfully",
+        blog: updatedBlog,
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Error updating blog:", error);
+    return NextResponse.json(
+      {
+        error: "Failed to update blog",
+        details: error instanceof Error ? error.message : "Unknown error",
+      },
       { status: 500 }
     );
   }

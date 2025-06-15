@@ -19,7 +19,7 @@ export default async function Account() {
   return (
     <Content minHeight={CONTENT_MIN_HEIGHT} gap="lg:gap-theme-lg gap-theme-md">
       <TitleSection title="Mi cuenta" />
-      <div className="flex flex-col gap-theme-lg lg:items-center w-full max-w-[var(--spacing-content-width)] lg:p-theme-lg lg:border rounded-md">
+      <div className="flex flex-col gap-theme-lg lg:items-center w-full max-w-[var(--spacing-content-width)] lg:p-theme-lg lg:border border-border rounded-md">
         <div className="flex flex-col items-center gap-theme-md">
           <div className="relative w-32 h-32">
             {session?.user?.avatar ? (
