@@ -14,7 +14,7 @@ import { UploadImage } from "../UploadImage/UploadImage";
 import { Blog } from "@/lib/models/Blog";
 
 interface CreateBlogFormProps {
-  blog: Blog;
+  blog?: Blog;
 }
 
 export const CreateBlogForm = ({

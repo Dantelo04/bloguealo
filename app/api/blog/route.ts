@@ -4,9 +4,18 @@ import { Blog } from "@/lib/models/Blog";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { getNativeUserById } from "@/lib/services/getNativeUser";
-import { isValidUrl } from "@/lib/services/isValidUrl";
 import { DEFAULT_BLOG_IMAGE } from "@/assets/constants";
 import { writeFile } from "fs/promises";
+
+const MAX_IMAGE_SIZE = 3 * 1024 * 1024; // 3MB in bytes
+
+function validateImageSize(base64Image: string): boolean {
+  // Remove the data URL prefix to get just the base64 string
+  const base64Data = base64Image.split(',')[1];
+  // Calculate the size of the base64 string
+  const sizeInBytes = Math.ceil((base64Data.length * 3) / 4);
+  return sizeInBytes <= MAX_IMAGE_SIZE;
+}
 
 // GET all blogs
 export async function GET(request: NextRequest) {
@@ -147,6 +156,12 @@ export async function POST(request: NextRequest) {
         let imgUrl = DEFAULT_BLOG_IMAGE;
 
         if(image) {
+          if (!validateImageSize(image)) {
+            return NextResponse.json(
+              { error: "La imagen debe ser menor a 3MB" },
+              { status: 400 }
+            );
+          }
           const timestamp = Date.now();
           const buffer = Buffer.from(image.split(',')[1], 'base64');
           const path = `./public/user-images/${timestamp}_${image.name || 'image.jpg'}`;
@@ -240,7 +255,14 @@ export async function PUT(request: NextRequest) {
       );
     }
 
-    const updateData: any = {};
+    const updateData: {
+      title?: string,
+      content?: string,
+      description?: string,
+      tags?: string[],
+      image?: string
+    } = {};
+
     if (title) updateData.title = title;
     if (content) updateData.content = content;
     if (description) updateData.description = description;
@@ -250,6 +272,12 @@ export async function PUT(request: NextRequest) {
     }
 
     if (image && image.startsWith('data:image/')) {
+      if (!validateImageSize(image)) {
+        return NextResponse.json(
+          { error: "La imagen debe ser menor a 3MB" },
+          { status: 400 }
+        );
+      }
       const timestamp = Date.now();
       const buffer = Buffer.from(image.split(',')[1], 'base64');
       const path = `./public/user-images/${timestamp}_${image.name || 'image.jpg'}`;
