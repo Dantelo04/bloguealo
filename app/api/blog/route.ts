@@ -164,9 +164,9 @@ export async function POST(request: NextRequest) {
           }
           const timestamp = Date.now();
           const buffer = Buffer.from(image.split(',')[1], 'base64');
-          const path = `./public/user-images/${timestamp}_${image.name || 'image.jpg'}`;
+          const path = `./public/${timestamp}_${image.name || 'image.jpg'}`;
           await writeFile(path, buffer);
-          imgUrl = `/user-images/${timestamp}_${image.name || 'image.jpg'}`;
+          imgUrl = `/${timestamp}_${image.name || 'image.jpg'}`;
         }
 
         const blogData = {
@@ -280,9 +280,9 @@ export async function PUT(request: NextRequest) {
       }
       const timestamp = Date.now();
       const buffer = Buffer.from(image.split(',')[1], 'base64');
-      const path = `./public/user-images/${timestamp}_${image.name || 'image.jpg'}`;
+      const path = `./public/${timestamp}_${image.name || 'image.jpg'}`;
       await writeFile(path, buffer);
-      updateData.image = `/user-images/${timestamp}_${image.name || 'image.jpg'}`;
+      updateData.image = `/${timestamp}_${image.name || 'image.jpg'}`;
     }
 
     const updatedBlog = await Blog.findByIdAndUpdate(
