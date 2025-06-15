@@ -23,7 +23,7 @@ export const TextArea = ({
 }: TextAreaProps) => {
   return (
     <textarea
-      className={`w-full border border-black rounded-md px-2 py-1 outline-none ${className}`}
+      className={`w-full border border-black rounded-md px-2 py-1 outline-none h-full ${className}`}
       name={name}
       placeholder={placeholder}
       value={value}

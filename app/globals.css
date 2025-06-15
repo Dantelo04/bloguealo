@@ -53,6 +53,8 @@ body {
   background: var(--background);
   color: var(--text);
   font-family: var(--font-outfit), Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+  overscroll-behavior: none;
 }
 
 a {
@@ -86,3 +88,4 @@ section {
 .inner-shadow {
   box-shadow: inset 0px 0px 10px 2px rgba(255, 255, 255, 0.8);
 }
+

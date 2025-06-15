@@ -4,7 +4,6 @@ import { Author } from "./Author";
 import { CustomLink } from "../CustomLink/CustomLink";
 import { CgArrowRight } from "react-icons/cg";
 import { DEFAULT_BLOG_IMAGE } from "@/assets/constants";
-import { isValidUrl } from "@/lib/services/isValidUrl";
 import { Blog } from "@/lib/models/Blog";
 import { getUserById } from "@/lib/actions/getUserById";
 
@@ -21,10 +20,12 @@ export const BlogHighlight = async ({
 }: BlogHighlightProps) => {
   const author = await getUserById(blog?.author_id || "");
 
+  if(!blog) return;
+
   return (
     <div className={`flex flex-col gap-theme-xl w-full max-w-content-width relative ${rounded ? "rounded-md " : "lg:rounded-md"} overflow-hidden h-[500px]`}>
       <Image
-        src={isValidUrl(blog?.image || "") ? blog?.image || DEFAULT_BLOG_IMAGE : DEFAULT_BLOG_IMAGE}
+        src={blog.image || DEFAULT_BLOG_IMAGE}
         alt="Blog Highlight"
         width={1200}
         height={500}

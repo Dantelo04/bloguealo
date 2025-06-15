@@ -23,7 +23,7 @@ export const LogoutButton = () => {
     });
   };
   return (
-    <div className="flex flex-col gap-theme-sm w-full">
+    <div className="flex flex-col gap-theme-sm w-full lg:w-fit">
       <Button onClick={handleSignOut} disabled={pending} variant="danger">
         Cerrar sesión
       </Button>

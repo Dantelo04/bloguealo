@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Input } from "./Input";
 import { Button } from "../Button/Button";
 import { TextArea } from "./TextArea";
@@ -10,20 +10,49 @@ import { BLOG_TAGS, MIN_TAGS, PLACEHOLDER_BLOG, TAG_LIMIT } from "@/assets/const
 import { Error } from "./Error";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { UploadImage } from "../UploadImage/UploadImage";
+import { Blog } from "@/lib/models/Blog";
 
-export const CreateBlogForm = () => {
+interface CreateBlogFormProps {
+  blog: Blog;
+}
+
+export const CreateBlogForm = ({
+  blog
+}: CreateBlogFormProps) => {
   const router = useRouter();
+  const [mounted, setMounted] = useState(false); 
   const [tags, setTags] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
-
+  const [loading, setLoading] = useState(true);
   const [data, setData] = useState({
-    title: "",
+    title: "" ,
     content: PLACEHOLDER_BLOG,
     description: "",
     image: "",
     tags: tags,
   });
+
+  useEffect(()=> {
+    setMounted(true);
+  }, [mounted])
+
+
+  useEffect(()=> {
+    if (blog) {
+      setTags(blog.tags)
+      setData({
+        title: blog.title,
+        content: blog.content,
+        description: blog.description,
+        image: blog.image || "",
+        tags: blog.tags
+      })
+    }
+    setLoading(false);
+  }, [blog])
+
+  
 
   const handleTagClick = (tag: string) => {
     if (tags.includes(tag)) {
@@ -42,6 +71,16 @@ export const CreateBlogForm = () => {
   ) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
+
+  const handleImageChange = (file: File | null) => {
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setData({ ...data, image: reader.result as string });
+      }
+      reader.readAsDataURL(file);
+    }
+  }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -65,10 +104,17 @@ export const CreateBlogForm = () => {
         content: data.content,
         description: data.description,
         tags: tags,
-        image: data.image !== "" ? data.image : "/default-background.webp",
+        image: data.image,
       };
 
-      await axios.post("/api/blog", payload);
+      if(blog && !loading) {
+        await axios.put("/api/blog", {
+          id: blog._id,
+          ...payload
+        });
+      } else {
+        await axios.post("/api/blog", payload);
+      }
 
       setData({
         title: "",
@@ -100,6 +146,8 @@ export const CreateBlogForm = () => {
       >
         <div className="flex flex-col gap-theme-md w-full">
           <div className="flex flex-col gap-theme-md h-full">
+            <UploadImage value={data.image} onChange={handleImageChange} />
+          
             <Input
               type="text"
               name="title"
@@ -108,13 +156,7 @@ export const CreateBlogForm = () => {
               onChange={handleChange}
               required
             />
-            <Input
-              type="text"
-              name="image"
-              placeholder="URL de la imagen (opcional)"
-              value={data.image}
-              onChange={handleChange}
-            />
+            
             <TextArea
               name="description"
               placeholder="Descripción*"
@@ -137,7 +179,8 @@ export const CreateBlogForm = () => {
             </div>
           </div>
           <Button type="submit" disabled={loading}>
-            {loading ? "Creando..." : "Crear publicación"}
+            {!blog && (loading ? "Creando..." : "Crear publicación")}
+            {blog && (loading ? "Actualizando..." : "Editar publicación")}
           </Button>
           {error && <Error error={error} />}
         </div>
