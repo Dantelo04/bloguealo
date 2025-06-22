@@ -8,6 +8,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "picsum.photos",
       },
+      {
+        protocol: "https",
+        hostname: "bloguealo-app.s3.us-central-1.wasabisys.com",
+      }
     ],
   },
   experimental: {
