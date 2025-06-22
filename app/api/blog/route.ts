@@ -6,15 +6,13 @@ import { headers } from "next/headers";
 import { getNativeUserById } from "@/lib/services/getNativeUser";
 import { DEFAULT_BLOG_IMAGE } from "@/assets/constants";
 import { writeFile } from "fs/promises";
+import { base64ToBuffer, uploadImageToS3 } from "@/lib/s3";
 
 const MAX_IMAGE_SIZE = 3 * 1024 * 1024; // 3MB in bytes
 
-function validateImageSize(base64Image: string): boolean {
-  // Remove the data URL prefix to get just the base64 string
-  const base64Data = base64Image.split(',')[1];
-  // Calculate the size of the base64 string
-  const sizeInBytes = Math.ceil((base64Data.length * 3) / 4);
-  return sizeInBytes <= MAX_IMAGE_SIZE;
+function validateImageSize(base64: string): boolean {
+  const sizeInMB = base64.length / 1024 / 1024;
+  return sizeInMB <= MAX_IMAGE_SIZE;
 }
 
 // GET all blogs
@@ -96,6 +94,7 @@ export async function GET(request: NextRequest) {
 
 // POST new blog
 export async function POST(request: NextRequest) {
+  
   try {
     // Ensure database connection
     await connectDB();
@@ -156,17 +155,26 @@ export async function POST(request: NextRequest) {
         let imgUrl = DEFAULT_BLOG_IMAGE;
 
         if(image) {
+
           if (!validateImageSize(image)) {
             return NextResponse.json(
               { error: "La imagen debe ser menor a 3MB" },
               { status: 400 }
             );
           }
-          const timestamp = Date.now();
-          const buffer = Buffer.from(image.split(',')[1], 'base64');
-          const path = `./public/${timestamp}_${image.name || 'image.jpg'}`;
-          await writeFile(path, buffer);
-          imgUrl = `/${timestamp}_${image.name || 'image.jpg'}`;
+
+          const { buffer, mime } = base64ToBuffer(image);
+
+          const imageName = `${Date.now()}.${mime.split("/")[1]}`;
+
+          const response = await uploadImageToS3(buffer, mime, imageName);
+
+          console.log(imageName);
+
+          console.log("Response:", response);
+          if (response) {
+            imgUrl = `${process.env.WASABI_ENDPOINT}/${process.env.WASABI_BUCKET}/${imageName}`;
+          }
         }
 
         const blogData = {

@@ -107,6 +107,8 @@ export const CreateBlogForm = ({
         image: data.image,
       };
 
+      console.log("Payload:", payload);
+
       if(blog && !loading) {
         await axios.put("/api/blog", {
           id: blog._id,
