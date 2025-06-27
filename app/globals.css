@@ -89,3 +89,12 @@ section {
   box-shadow: inset 0px 0px 10px 2px rgba(255, 255, 255, 0.8);
 }
 
+.vigette-t {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background: linear-gradient(to top, transparent 30%, rgba(0, 0, 0, 0.6) 100%);
+  z-index: 1;
+}

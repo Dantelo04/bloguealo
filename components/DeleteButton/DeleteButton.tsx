@@ -26,7 +26,7 @@ export const DeleteButton = ({ blog_id }: DeleteButtonProps) => {
   if(!mounted) return;
 
   return (
-    <button className="absolute top-2 right-2 bg-red-500/20 border-red-500 backdrop-blur border text-red-500 p-2 rounded-md cursor-pointer hover:bg-red-500/30 active:scale-90 transition-all duration-100 active:bg-red-500/30" onClick={handleDelete} disabled={loading}>
+    <button className="absolute top-2 right-2 bg-red-500/20 border-red-500 backdrop-blur border text-red-500 p-2 rounded-md cursor-pointer hover:bg-red-500/30 active:scale-90 transition-all duration-100 active:bg-red-500/30 z-20" onClick={handleDelete} disabled={loading}>
       {!loading && <FaTrash className="lg:size-4 size-5" />}
       {loading && <FaTrash className="lg:size-4 size-5 opacity-80 animate-pulse cursor-not-allowed" />}
     </button>

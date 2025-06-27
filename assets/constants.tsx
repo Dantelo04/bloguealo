@@ -228,3 +228,5 @@ export const OBJECT_OPTIONS = {
   flattenObjectIds: true,
   flattenMaps: true,
 };
+
+export const MAX_IMAGE_SIZE = 3 * 1024 * 1024;

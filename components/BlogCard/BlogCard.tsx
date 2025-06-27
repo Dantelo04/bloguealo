@@ -6,6 +6,7 @@ import { LikeButton } from "../Button/LikeButton";
 import { Blog } from "@/lib/models/Blog";
 import { DeleteButton } from "../DeleteButton/DeleteButton";
 import { EditButton } from "../EditButton/EditButton";
+import { TopVignette } from "./TopVignette";
 
 interface BlogCardProps {
   blog: Blog;
@@ -27,6 +28,7 @@ export const BlogCard = ({ blog, editable = false }: BlogCardProps) => {
           <>
             <DeleteButton blog_id={blog._id} />
             <EditButton blog_id={blog._id} />
+            <TopVignette />
           </>
         )}
         <div className="flex flex-col gap-2 p-theme-md">

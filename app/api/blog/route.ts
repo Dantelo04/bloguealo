@@ -5,15 +5,9 @@ import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { getNativeUserById } from "@/lib/services/getNativeUser";
 import { DEFAULT_BLOG_IMAGE } from "@/assets/constants";
-import { writeFile } from "fs/promises";
-import { base64ToBuffer, uploadImageToS3 } from "@/lib/s3";
-
-const MAX_IMAGE_SIZE = 3 * 1024 * 1024; // 3MB in bytes
-
-function validateImageSize(base64: string): boolean {
-  const sizeInMB = base64.length / 1024 / 1024;
-  return sizeInMB <= MAX_IMAGE_SIZE;
-}
+import { uploadImageToS3 } from "@/lib/s3";
+import { base64ToBuffer } from "@/lib/actions/array64ToBuffer";
+import { validateImageSize } from "@/lib/actions/validateImageSize";
 
 // GET all blogs
 export async function GET(request: NextRequest) {
@@ -172,8 +166,9 @@ export async function POST(request: NextRequest) {
           console.log(imageName);
 
           console.log("Response:", response);
+
           if (response) {
-            imgUrl = `${process.env.WASABI_ENDPOINT}/${process.env.WASABI_BUCKET}/${imageName}`;
+            imgUrl = `${process.env.PUBLIC_ACCESS_URL + imageName}`;
           }
         }
 
@@ -279,18 +274,23 @@ export async function PUT(request: NextRequest) {
       updateData.tags = tags.length > tag_limit ? tags.slice(0, tag_limit) : tags;
     }
 
-    if (image && image.startsWith('data:image/')) {
+    if (image) {
       if (!validateImageSize(image)) {
         return NextResponse.json(
           { error: "La imagen debe ser menor a 3MB" },
           { status: 400 }
         );
       }
-      const timestamp = Date.now();
-      const buffer = Buffer.from(image.split(',')[1], 'base64');
-      const path = `./public/${timestamp}_${image.name || 'image.jpg'}`;
-      await writeFile(path, buffer);
-      updateData.image = `/${timestamp}_${image.name || 'image.jpg'}`;
+
+      const { buffer, mime } = base64ToBuffer(image);
+
+      const imageName = `${Date.now()}.${mime.split("/")[1]}`;
+
+      const response = await uploadImageToS3(buffer, mime, imageName);
+
+      if (response) {
+        updateData.image = `${process.env.PUBLIC_ACCESS_URL + imageName}`;
+      }
     }
 
     const updatedBlog = await Blog.findByIdAndUpdate(
