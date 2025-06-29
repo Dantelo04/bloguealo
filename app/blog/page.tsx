@@ -25,9 +25,7 @@ export default function BlogPage() {
   }
 
   useEffect(() => {
-    setIsLoading(true)
     handleSearch()
-    setIsLoading(false)
   }, [selectedTag])
 
   const handleTagClick = (tag: string) => {
