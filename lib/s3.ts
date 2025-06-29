@@ -1,4 +1,4 @@
-import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+import { S3Client, PutObjectCommand, DeleteObjectCommand } from "@aws-sdk/client-s3";
 
 const s3 = new S3Client({
   region: process.env.R2_REGION!,
@@ -21,6 +21,21 @@ export const uploadImageToS3 = async (buffer: Buffer, mime: string, name: string
   try {
     const response = await s3.send(command);
     return response;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+export const deleteImageFromS3 = async (url: string) => {
+  const command = new DeleteObjectCommand({
+    Bucket: process.env.R2_BUCKET!,
+    Key: url.split("/").pop()!,
+  });
+
+  try {
+    const response = await s3.send(command);
+    console.log(response);
   } catch (error) {
     console.log(error);
     return null;

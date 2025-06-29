@@ -2,6 +2,6 @@ import React from 'react'
 
 export const Logo = () => {
   return (
-    <span className='text-2xl font-bold uppercase tracking-wider'>Bloguealo</span>
+    <a href="/" className='text-2xl font-extrabold uppercase tracking-wider' style={{ textDecoration: "none" }}>Bloguealo</a>
   )
 }

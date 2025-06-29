@@ -5,7 +5,7 @@ import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { getNativeUserById } from "@/lib/services/getNativeUser";
 import { DEFAULT_BLOG_IMAGE } from "@/assets/constants";
-import { uploadImageToS3 } from "@/lib/s3";
+import { deleteImageFromS3, uploadImageToS3 } from "@/lib/s3";
 import { base64ToBuffer } from "@/lib/actions/array64ToBuffer";
 import { validateImageSize } from "@/lib/actions/validateImageSize";
 
@@ -275,6 +275,8 @@ export async function PUT(request: NextRequest) {
     }
 
     if (image) {
+      if(blog.image) await deleteImageFromS3(blog.image);
+
       if (!validateImageSize(image)) {
         return NextResponse.json(
           { error: "La imagen debe ser menor a 3MB" },

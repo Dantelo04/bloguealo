@@ -3,6 +3,7 @@ import { connectDB } from "@/lib/config/db";
 import { Blog } from "@/lib/models/Blog";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
+import { deleteImageFromS3 } from "@/lib/s3";
 
 export async function GET(
   request: NextRequest,
@@ -63,7 +64,8 @@ export async function DELETE(
       );
     }
 
-    // Delete the blog
+    // Delete the blog and the image
+    if(blog.image) await deleteImageFromS3(blog.image);
     await Blog.findByIdAndDelete(blogId);
 
     return NextResponse.json({ message: "Blog deleted" }, { status: 200 });
