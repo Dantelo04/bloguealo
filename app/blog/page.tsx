@@ -16,16 +16,20 @@ export default function BlogPage() {
   const [selectedTag, setSelectedTag] = useState<string[] | null>(null)
   const [data, setData] = useState<Blog[]>([])
   const [isLoading, setIsLoading] = useState(true)
+  const [isSearching, setIsSearching] = useState(false)
 
   useEffect(() => {
-    const fetchBlogs = async () => {
-      setIsLoading(true)
-      const blogs = await getAllBlogs()
-      setData(blogs)
-      setIsLoading(false)
-    }
-    fetchBlogs()
-  }, [])
+    setIsLoading(true)
+    handleSearch()
+    setIsLoading(false)
+  }, [selectedTag])
+
+  const handleSearch = async () => {
+    setIsSearching(true)
+    const blogs = await getAllBlogs({ search, tags: selectedTag || [] })
+    setData(blogs)
+    setIsSearching(false)
+  }
 
   const handleTagClick = (tag: string) => {
     if (selectedTag?.includes(tag)) {
@@ -33,12 +37,14 @@ export default function BlogPage() {
     } else {
       setSelectedTag([...(selectedTag || []), tag])
     }
+
+    handleSearch()
   }
 
   return (
     <Content minHeight={CONTENT_MIN_HEIGHT} gap='gap-1'>
       <div className='flex flex-col gap-theme-sm w-full max-w-[var(--spacing-content-width)]'>
-        <SearchInput value={search} onChange={(e) => setSearch(e.target.value)}/>
+        <SearchInput value={search} onChange={(e) => setSearch(e.target.value)} onSearch={handleSearch} loading={isSearching}/>
         <div className='flex flex-wrap gap-2'>
             {BLOG_TAGS.map((tag) => (
               <Tag key={tag} selected={selectedTag?.includes(tag)} onClick={() => handleTagClick(tag)}>{tag}</Tag>
