@@ -17,18 +17,18 @@ export default function BlogPage() {
   const [data, setData] = useState<Blog[]>([])
   const [isLoading, setIsLoading] = useState(true)
 
-  useEffect(() => {
-    setIsLoading(true)
-    handleSearch()
-    setIsLoading(false)
-  }, [selectedTag])
-
   const handleSearch = async () => {
     setIsLoading(true)
     const blogs = await getAllBlogs({ search, tags: selectedTag || [] })
     setData(blogs)
     setIsLoading(false)
   }
+
+  useEffect(() => {
+    setIsLoading(true)
+    handleSearch()
+    setIsLoading(false)
+  }, [selectedTag])
 
   const handleTagClick = (tag: string) => {
     if (selectedTag?.includes(tag)) {

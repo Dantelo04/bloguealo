@@ -3,6 +3,7 @@
 import { OBJECT_OPTIONS } from "@/assets/constants";
 import { connectDB } from "../config/db";
 import { Blog } from "../models/Blog";
+import { FilterQuery } from "mongoose";
 
 interface GetAllBlogsParams {
   page?: number;
@@ -22,7 +23,7 @@ export const getAllBlogs = async ({
 
     const skip = (page - 1) * limit;
 
-    const query: any = {};
+    const query: FilterQuery<Blog> = {};
 
     const searchConditions = [];
 
