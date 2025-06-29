@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Outfit } from "next/font/google";
+import { Rethink_Sans } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar/Navbar";
 import { Footer } from "@/components/Footer/Footer";
 
-const outfit = Outfit({
+const outfit = Rethink_Sans({
   variable: "--font-outfit",
   subsets: ["latin"],
 });

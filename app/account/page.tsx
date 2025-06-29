@@ -56,7 +56,7 @@ export default async function Account() {
           </div>
         </div>
 
-        <LogoutButton />
+        {session?.user && <LogoutButton />}
       </div>
       <BlogGallery title="Mis publicaciones" blogs={blogs || []} editable={true}/>
     </Content>

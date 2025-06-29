@@ -20,7 +20,7 @@ export const BlogGallery = ({
   editable = false,
 }: BlogGalleryProps) => {
   const safeBlogs = blogs || [];
-  const { data: session, isPending } = authClient.useSession();
+  const { data: session, isPending } = editable ? authClient.useSession() : { data: null, isPending: false };
 
   return (
     <div className="flex flex-col gap-theme-sm w-full max-w-[var(--spacing-content-width)]">

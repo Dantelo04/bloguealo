@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "bloguealo-app.s3.us-central-1.wasabisys.com",
+        hostname: "pub-f05f5a33245942d8a423599dd55d69cb.r2.dev",
       }
     ],
   },
